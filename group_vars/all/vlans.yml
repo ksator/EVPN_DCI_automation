@@ -3,11 +3,9 @@ vlanlist:
   id: 201
   vni: 20201
   subnet: 10.201.0.0/16
-#  virtual_ip: 10.201.0.1
   virtual_mac: 00:25:01:00:00:01
 - name: VLAN202
   id: 202
   vni: 20202
   subnet: 10.202.0.0/16 
-#  virtual_ip: 10.202.0.1
   virtual_mac: 00:25:02:00:00:01
