@@ -14,12 +14,12 @@
    tasks:
     - name: remove files from render directory
       file:
-       path: "{{playbook_dir}}/render/{{inventory_hostname}}.conf"
+       path: "{{playbook_dir}}/render/{{inventory_hostname}}_addvlans.conf"
        state: absent
     - name: Render template for QFX10k
       template:
          src: "{{playbook_dir}}/templates/10kaddvlans.j2"
-         dest: "{{playbook_dir}}/render/{{ inventory_hostname }}.conf"
+         dest: "{{playbook_dir}}/render/{{ inventory_hostname }}_addvlans.conf"
 
 
  - name: render template for QFX5k
@@ -29,10 +29,10 @@
    tasks:
     - name: remove files from render directory
       file:
-       path: "{{playbook_dir}}/render/{{inventory_hostname}}.conf"
+       path: "{{playbook_dir}}/render/{{inventory_hostname}}_addvlans.conf"
        state: absent
     - name: Render template for QFX5k
       template:
          src: "{{playbook_dir}}/templates/5kaddvlans.j2"
-         dest: "{{playbook_dir}}/render/{{ inventory_hostname }}.conf"
+         dest: "{{playbook_dir}}/render/{{ inventory_hostname }}_addvlans.conf"
 
