@@ -1,0 +1,18 @@
+[all:children]
+QFX10k
+QFX5k
+
+[QFX10k]
+Superfast junos_host=10.161.34.20
+Dori      junos_host=10.161.34.131
+Theia     junos_host=10.161.32.88
+Nori      junos_host=10.161.32.93
+ 
+[QFX5k]
+QFX6      junos_host=10.161.32.219
+QFX11     junos_host=10.161.32.243
+QFX21     junos_host=10.161.34.85
+QFX22     junos_host=10.161.34.11
+QFX23     junos_host=10.161.34.12
+QFX24     junos_host=10.161.34.13
+
