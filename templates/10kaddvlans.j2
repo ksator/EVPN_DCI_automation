@@ -1,0 +1,34 @@
+{% for item in vlanlist %}
+vlans {
+    {{ item.name }} {
+        vlan-id {{ item.id }};
+        l3-interface irb.{{ item.id }};
+        vxlan {
+            vni {{ item.vni }};
+        }
+    }
+}
+interfaces {
+    irb {
+        unit {{ item.id }}} {
+            family inet {
+                address {{ item.subnet }} {
+                    virtual-gateway-address {{ item.virtual_ip }};
+                }
+            }
+            virtual-gateway-v4-mac {{ item.virtual_mac }};
+        }
+}
+protocols {
+    pim {
+        interface irb.{{ item.id }} {
+            distributed-dr;
+        }
+    }
+    igmp-snooping {
+        vlan {{ item.name }} {
+            proxy;
+        }
+    }
+}
+{% endfor %}

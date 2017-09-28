@@ -1,0 +1,40 @@
+ - name: create render directory
+   hosts: localhost
+   gather_facts: no
+   tasks:
+   - name: create render directory
+     file:
+       path: "{{playbook_dir}}/render"
+       state: directory
+
+ - name: render template for QFX10k
+   hosts: QFX10k
+   connection: local
+   gather_facts: no
+   tasks:
+    - name: remove files from render directory
+      file:
+       path: "{{playbook_dir}}/render/{{inventory_hostname}}.set"
+       state: absent
+    - name: Render template for QFX10k
+      template: 
+         src: "{{ playbook_dir }}/templates/10kremovevlans.j2" 
+         dest: "{{ playbook_dir }}/render/{{ inventory_hostname }}.set"
+
+  
+ - name: render template for QFX5k
+   hosts: QFX5k
+   connection: local
+   gather_facts: no
+   tasks:
+    - name: remove files from render directory
+      file:
+       path: "{{playbook_dir}}/render/{{inventory_hostname}}.set"
+       state: absent
+    - name: Render template for QFX5k
+      template:
+         src: "{{ playbook_dir }}/templates/5kremovevlans.j2"
+         dest: "{{ playbook_dir }}/render/{{ inventory_hostname }}.set"
+
+
+

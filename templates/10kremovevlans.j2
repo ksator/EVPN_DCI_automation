@@ -1,0 +1,6 @@
+{% for item in vlanlist %}
+delete vlans {{ item.name }}
+delete interfaces irb unit {{ item.id }} 
+delete protocols pim interface irb.{{ item.id }}
+delete protocols igmp-snooping vlan {{ item.name }}
+{% endfor %}

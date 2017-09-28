@@ -1,0 +1,8 @@
+{% for item in vlanlist %}
+vlans {                                 
+    {{ item.name }} {
+        vlan-id {{ item.id }};
+    }
+}
+{% endfor %}
+
