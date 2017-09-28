@@ -102,3 +102,5 @@ Theia                      : ok=3    changed=0    unreachable=0    failed=0
 localhost                  : ok=1    changed=0    unreachable=0    failed=0
 ```
 
+### Looking for more details about junos automation with Ansible?
+Visit https://github.com/ksator/ansible-training-for-junos-automation
