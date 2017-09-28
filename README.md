@@ -1,7 +1,7 @@
 ### About this repo:  
 ansible playbooks are pb.*.yml  
 ansible inventory file is hosts  
-jinja templates are j2 files in the directory templates 
+jinja templates are j2 files in the directory templates  
 variables are yml files under group_vars and host_vars  
 
 ### how to clone this repo: 
