@@ -5,10 +5,10 @@ jinja templates are j2 files in the directory templates
 variables are yml files under group_vars and host_vars  
 
 ### how to clone this repo: 
-
+```
 git clone https://github.com/ksator/EVPN_DCI_automation.git  
 cd EVPN_DCI_automation
- 
+```
 ### requirements on ubuntu:  
 sudo pip install ansible==2.2.3  
 sudo ansible-galaxy install Juniper.junos    
