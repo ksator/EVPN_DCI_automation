@@ -103,4 +103,8 @@ localhost                  : ok=1    changed=0    unreachable=0    failed=0
 ```
 
 ### Looking for more details about junos automation with Ansible?
-Visit https://github.com/ksator/ansible-training-for-junos-automation
+You can visit these repositories:   
+https://github.com/ksator/ansible-training-for-junos-automation
+https://github.com/JNPRAutomate/ansible-junos-examples
+https://github.com/dgjnpr/ansible-template-for-junos
+
