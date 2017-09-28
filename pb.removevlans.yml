@@ -1,5 +1,5 @@
 ---
- - name: add vlans on QFX10k
+ - name: remvoe vlans on QFX10k
    hosts: QFX10k
    connection: local
    gather_facts: no 
@@ -7,12 +7,12 @@
    - name: Backup locally the configuration. Render the template. Push the rendered template. Commit.
      junos_template:
       provider: "{{  credentials }}"
-      src: "{{ playbook_dir }}/templates/10kaddvlans.j2"
+      src: "{{ playbook_dir }}/templates/10kremovevlans.j2"
       comment: "configuration from Ansible"
       backup: true 
-      config_format: text
+      config_format: set
 
- - name: add vlans on QFX5k
+ - name: remove vlans on QFX5k
    hosts: QFX5k
    connection: local
    gather_facts: no
@@ -20,8 +20,8 @@
    - name: Backup locally the configuration. Render the template. Push the rendered template. Commit.
      junos_template:
       provider: "{{  credentials }}"
-      src: "{{ playbook_dir }}/templates/5kaddvlans.j2"
+      src: "{{ playbook_dir }}/templates/5kremovevlans.j2"
       comment: "configuration from Ansible"
       backup: true
-      config_format: text
+      config_format: set
 
