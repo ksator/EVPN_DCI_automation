@@ -1,12 +1,11 @@
 ### About this repo:  
 ansible playbooks are pb.*.yml  
 ansible inventory file is hosts  
-templates are j2 files  
+jinja templates are j2 files in the directory templates 
 variables are yml files under group_vars and host_vars  
 
-### usage: 
+### how to clone this repo: 
 
-get the content locally:   
 git clone https://github.com/ksator/EVPN_DCI_automation.git  
 cd EVPN_DCI_automation
  
@@ -19,7 +18,7 @@ install junos-eznc (pyez) and its dependencies
 ### Junos requirement: 
 Enable netconf and make sure you can reach that port on the juniper device  from your laptop  
 
-
+### Examples: 
 ```
 root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml
 
