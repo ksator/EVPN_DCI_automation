@@ -1,3 +1,26 @@
+### About this repo:  
+ansible playbooks are pb.*.yml  
+ansible inventory file is hosts  
+templates are j2 files  
+variables are yml files under group_vars and host_vars  
+
+### usage: 
+
+get the content locally:   
+git clone https://github.com/ksator/EVPN_DCI_automation.git  
+cd EVPN_DCI_automation
+ 
+### requirements on ubuntu:  
+sudo pip install ansible==2.2.3  
+sudo ansible-galaxy install Juniper.junos    
+sudo pip install jxmlease  
+install junos-eznc (pyez) and its dependencies  
+ 
+### Junos requirement: 
+Enable netconf and make sure you can reach that port on the juniper device  from your laptop  
+
+
+```
 root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml
 
 PLAY [create inventory directory] **********************************************
@@ -75,5 +98,5 @@ QFX6                       : ok=3    changed=0    unreachable=0    failed=0
 Superfast                  : ok=3    changed=0    unreachable=0    failed=0
 Theia                      : ok=3    changed=0    unreachable=0    failed=0
 localhost                  : ok=1    changed=0    unreachable=0    failed=0
-
+```
 
