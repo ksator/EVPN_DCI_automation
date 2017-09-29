@@ -13,11 +13,11 @@ Content for an EVPN_DCI_automation demo
 - group related variables are yml files under the directory [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) 
 
 #### templates
-- 10k*.j2 templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX10k specifics to:
+- **10kxxx.j2** templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX10k specifics templates to:
    - add new vlans
    - remove existing vlans
    - replace actual vlans configuration with the desirated state
-- 5k*.j2 templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX5k specifics
+- **5kxxx.j2** templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX5k specifics templates to:
    - add new vlans
    - remove existing vlans
    - replace actual vlans configuration with the desirated state
@@ -25,9 +25,9 @@ Content for an EVPN_DCI_automation demo
 #### playbooks
 - **pb.renderxxx.yml** playbooks render templates. They dont connect to junos devices
 - **pb.rollback.yml** playbook performs a rollback on junos devices. 
-- **pb.addvlans.yml** playbook configure the devices with new vlans
+- **pb.addvlans.yml** playbook configures the devices with new vlans
 - **pb.removevlans.yml** playbook removes existing vlans from devices
-- **pb.check.vlans.yml** playbook checks from devices operationnal states if vlans are presents
+- **pb.check.vlans.yml** playbook checks if vlans are presents from devices operationnal states
 - **pb.replacevlans.yml** playbook enforces the desirated state on the devices (which is the best approach vs **pb.addvlans.yml** + **pb.removevlans.yml**)
 - **pb.get.junos.facts.yml** playbook gets the junos facts from the devices  
   
