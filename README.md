@@ -10,16 +10,19 @@ Content for an EVPN_DCI_automation demo
 - jinja templates are j2 files in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates).    
 - variables are yml files under [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) and [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars) directories.   
 
-#### templates
-- 10k*.j2 templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX10k specifics to:
- - add new vlans
- - remove existing vlans
- - replace actual vlans configuration with the desirated state
-- 5k*.j2 templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX5k specifics
-
 #### variables 
 - host specific varaibles are yml files under the directory [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars) directories.   
 - group related variables are yml files under the directory [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) 
+
+#### templates
+- 10k*.j2 templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX10k specifics to:
+   - add new vlans
+   - remove existing vlans
+   - replace actual vlans configuration with the desirated state
+- 5k*.j2 templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX5k specifics
+   - add new vlans
+   - remove existing vlans
+   - replace actual vlans configuration with the desirated state
 
 #### playbooks
 - **pb.render*.yml** playbooks render templates. They dont connect to junos devices
@@ -27,8 +30,8 @@ Content for an EVPN_DCI_automation demo
 - **pb.addvlans.yml** playbook configure the devices with new vlans
 - **pb.removevlans.yml** playbook removes vlans from devices
 - **pb.check.vlans.yml** playbook checks from devices operationnal states if vlans are presents
-- **pb.replacevlans.yml** playbook enforces the desirated state on the device
-- **pb.get.junos.facts.yml** playbook gets the junos facts from the device  
+- **pb.replacevlans.yml** playbook enforces the desirated state on the devices
+- **pb.get.junos.facts.yml** playbook gets the junos facts from the devices  
   
 ### how to clone this repo: 
 ```
