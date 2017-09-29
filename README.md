@@ -25,11 +25,11 @@ Content for an EVPN_DCI_automation demo
 #### playbooks
 - **pb.renderxxx.yml** playbooks render templates. They dont connect to junos devices
 - [**pb.rollback.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.rollback.yml) playbook performs a rollback on junos devices. 
-- **pb.addvlans.yml** playbook configures the devices with new vlans
-- **pb.removevlans.yml** playbook removes existing vlans from devices
-- **pb.check.vlans.yml** playbook checks if vlans are presents from devices operationnal states
-- **pb.replacevlans.yml** playbook enforces the desirated state on the devices (which is the best approach vs **pb.addvlans.yml** + **pb.removevlans.yml**)
-- **pb.get.junos.facts.yml** playbook gets the junos facts from the devices  
+- [**pb.addvlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderaddvlans.yml) playbook configures the devices with new vlans
+- [**pb.removevlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.removevlans.yml) playbook removes existing vlans from devices
+- [**pb.check.vlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.check.vlans.yml) playbook checks if vlans are presents from devices operationnal states
+- [**pb.replacevlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.replacevlans.yml) playbook enforces the desirated state on the devices (which is the best approach vs [**pb.addvlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderaddvlans.yml) + [**pb.removevlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.removevlans.yml))
+- [**pb.get.junos.facts.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.get.junos.facts.yml) playbook gets the junos facts from the devices  
   
 ### how to clone this repo: 
 ```
