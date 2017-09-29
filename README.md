@@ -1,9 +1,7 @@
-### About this repo:  
+### What to find in this repo: 
 Content for an EVPN_DCI_automation demo 
 
-### What to find in this repo: 
-
-#### Structure 
+### Repo structure 
 - ansible playbooks are **pb.*.yml** files at the root of the repository.    
 - ansible inventory file is [**hosts**](https://github.com/ksator/EVPN_DCI_automation/blob/master/hosts) file at the root of the repository.    
 - ansible configuration file is [**ansible.cfg**](https://github.com/ksator/EVPN_DCI_automation/blob/master/ansible.cfg) at the root of the repository.   
