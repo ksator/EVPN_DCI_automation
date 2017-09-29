@@ -1,15 +1,14 @@
-## Last changed: 2017-09-29 02:32:54 PDT
+## Last changed: 2017-09-29 02:33:51 PDT
 version "17.3I20170905_1747_adarshr [adarshr]";
 groups {
-    global {
+    re0 {
         system {
-            host-name 36Q-11;
+            host-name QFX10016-2-RE0;
             domain-name jnpr.net;
             backup-router 10.161.39.254 destination 0.0.0.0/0;
             time-zone America/Los_Angeles;
-            authentication-order password;
             root-authentication {
-                encrypted-password "$1$SA2MFqpp$TsZr0QctmS6P7EZ2G4J/V/";
+                encrypted-password "$1$wIKnQ4ZR$YDQrW0RbearQOai32HJYe.";
             }
             name-server {
                 10.161.30.30;
@@ -21,7 +20,7 @@ groups {
                     uid 2001;
                     class superuser;
                     authentication {
-                        encrypted-password "$1$Dot0Reb9$/LSkF2DdwLAC./6jmEV1u/";
+                        encrypted-password "$1$898X3cxm$PwXhNRjGAXeIHrHq4xXtW1";
                     }
                 }
             }
@@ -46,11 +45,101 @@ groups {
                 server 66.129.255.62;
             }
         }
+        chassis {
+            redundancy {
+                routing-engine 0 master;
+                routing-engine 1 backup;
+            }
+        }
         interfaces {
             em0 {
                 unit 0 {
                     family inet {
-                        address 10.161.32.93/21;
+                        address 10.161.34.131/21;
+                    }
+                }
+            }
+        }
+        routing-options {
+            static {
+                route 10.255.255.0/24 {
+                    next-hop 10.161.39.254;
+                    retain;
+                    no-readvertise;
+                }
+                route 10.161.0.0/16 {
+                    next-hop 10.161.39.254;
+                    retain;
+                    no-readvertise;
+                }
+                route 172.16.0.0/12 {
+                    next-hop 10.161.39.254;
+                    retain;
+                    no-readvertise;
+                }
+                route 192.168.0.0/16 {
+                    next-hop 10.161.39.254;
+                    retain;
+                    no-readvertise;
+                }
+            }
+        }
+    }
+    re1 {
+        system {
+            host-name QFX10016-2-RE1;
+            domain-name jnpr.net;
+            backup-router 10.161.39.254 destination 0.0.0.0/0;
+            time-zone America/Los_Angeles;
+            root-authentication {
+                encrypted-password "$1$6CliHVHX$etZ7YxYBtTgvqmu9zDvgU.";
+            }
+            name-server {
+                10.161.30.30;
+                10.161.30.18;
+                66.129.255.62;
+            }
+            login {
+                user jnpr {
+                    uid 2001;
+                    class superuser;
+                    authentication {
+                        encrypted-password "$1$bVPisDaZ$pJMtjUOakdR6xHCXgvrgF.";
+                    }
+                }
+            }
+            services {
+                ftp;
+                ssh;
+                telnet;
+                xnm-clear-text;
+                netconf {
+                    ssh;
+                }
+            }
+            syslog {
+                file messages {
+                    any any;
+                    interactive-commands none;
+                    archive size 10m files 10;
+                }
+            }
+            ntp {
+                server 172.21.200.60;
+                server 66.129.255.62;
+            }
+        }
+        chassis {
+            redundancy {
+                routing-engine 0 master;
+                routing-engine 1 backup;
+            }
+        }
+        interfaces {
+            em0 {
+                unit 0 {
+                    family inet {
+                        address 10.161.34.132/21;
                     }
                 }
             }
@@ -81,9 +170,9 @@ groups {
         }
     }
 }
-apply-groups global;
+apply-groups [ re0 re1 ];
 system {
-    host-name Nori-QFX;
+    host-name Dori-QFX;
     arp {
         inactive: aging-timer 240;
     }
@@ -111,78 +200,76 @@ system {
             port 516;
         }
     }
+    commit synchronize;
 }
 chassis {
+    redundancy {
+        inactive: graceful-switchover;
+    }
     aggregated-devices {
         ethernet {
             device-count 5;
         }
     }
-    fpc 0 {
-        pic 0 {
-            port 30 {
-                channel-speed 10g;
-            }
-        }
-    }
 }
 interfaces {
-    xe-0/0/30:0 {
+    xe-1/0/0 {
         unit 0;
     }
-    xe-0/0/30:1 {
+    xe-1/0/1 {
+        description "Connection to Rhea";
         mtu 9216;
         unit 0 {
             family inet {
-                address 10.2.2.8/31;
+                address 10.1.1.8/31;
             }
         }
     }
-    xe-0/0/30:2 {
+    xe-1/0/2 {
         unit 0;
     }
-    xe-0/0/30:3 {
+    xe-1/0/3 {
         unit 0;
     }
-    xe-0/0/31:0 {
-        ether-options {
+    xe-1/0/4 {
+        unit 0 {
+            family ethernet-switching;
+        }
+    }
+    xe-1/0/5 {
+        description "DC1 Arista HOT Leaf (QFX21)";
+        gigether-options {
             802.3ad ae0;
         }
     }
-    xe-0/0/31:1 {
-        ether-options {
+    xe-1/0/6 {
+        gigether-options {
             802.3ad ae0;
         }
     }
-    xe-0/0/31:2 {
+    xe-1/0/7 {
+        description "TEMP Connection";
         unit 0;
     }
-    xe-0/0/31:3 {
+    xe-1/0/8 {
+        description "Cisco BL #1";
         unit 0;
     }
-    xe-0/0/32:0 {
-        unit 0;
-    }
-    xe-0/0/32:1 {
-        unit 0;
-    }
-    xe-0/0/32:2 {
-        unit 0;
-    }
-    xe-0/0/32:3 {
+    xe-1/0/9 {
+        description "Cisco BL #2 ";
         unit 0;
     }
     ae0 {
         mtu 9216;
         esi {
-            00:22:22:22:22:22:22:22:22:22;
+            00:11:11:11:11:11:11:11:11:11;
             all-active;
         }
         aggregated-ether-options {
             lacp {
                 active;
                 periodic fast;
-                system-id 02:02:02:02:02:02;
+                system-id 01:01:01:01:01:01;
             }
         }
         unit 0 {
@@ -191,14 +278,29 @@ interfaces {
                 vlan {
                     members all;
                 }
-                storm-control SC-PROFILE-1;
             }
         }
     }
     irb {
+        unit 201 {
+            family inet {
+                address 10.201.0.2/16 {
+                    virtual-gateway-address 10.201.0.1;
+                }
+            }
+            virtual-gateway-v4-mac 00:25:01:00:00:01;
+        }
+        unit 202 {
+            family inet {
+                address 10.202.0.2/16 {
+                    virtual-gateway-address 10.202.0.1;
+                }
+            }
+            virtual-gateway-v4-mac 00:25:02:00:00:01;
+        }
         unit 203 {
             family inet {
-                address 10.203.0.5/16 {
+                address 10.203.0.2/16 {
                     virtual-gateway-address 10.203.0.1;
                 }
             }
@@ -206,7 +308,7 @@ interfaces {
         }
         unit 204 {
             family inet {
-                address 10.204.0.5/16 {
+                address 10.204.0.2/16 {
                     virtual-gateway-address 10.204.0.1;
                 }
             }
@@ -214,7 +316,7 @@ interfaces {
         }
         unit 205 {
             family inet {
-                address 10.205.0.5/16 {
+                address 10.205.0.2/16 {
                     virtual-gateway-address 10.205.0.1;
                 }
             }
@@ -222,7 +324,7 @@ interfaces {
         }
         unit 206 {
             family inet {
-                address 10.206.0.5/16 {
+                address 10.206.0.2/16 {
                     virtual-gateway-address 10.206.0.1;
                 }
             }
@@ -230,7 +332,7 @@ interfaces {
         }
         unit 207 {
             family inet {
-                address 10.207.0.5/16 {
+                address 10.207.0.2/16 {
                     virtual-gateway-address 10.207.0.1;
                 }
             }
@@ -238,7 +340,7 @@ interfaces {
         }
         unit 208 {
             family inet {
-                address 10.208.0.5/16 {
+                address 10.208.0.2/16 {
                     virtual-gateway-address 10.208.0.1;
                 }
             }
@@ -246,7 +348,7 @@ interfaces {
         }
         unit 209 {
             family inet {
-                address 10.209.0.5/16 {
+                address 10.209.0.2/16 {
                     virtual-gateway-address 10.209.0.1;
                 }
             }
@@ -254,7 +356,7 @@ interfaces {
         }
         unit 210 {
             family inet {
-                address 10.210.0.5/16 {
+                address 10.210.0.2/16 {
                     virtual-gateway-address 10.210.0.1;
                 }
             }
@@ -262,7 +364,7 @@ interfaces {
         }
         unit 211 {
             family inet {
-                address 10.211.0.5/16 {
+                address 10.211.0.2/16 {
                     virtual-gateway-address 10.211.0.1;
                 }
             }
@@ -270,7 +372,7 @@ interfaces {
         }
         unit 212 {
             family inet {
-                address 10.212.0.5/16 {
+                address 10.212.0.2/16 {
                     virtual-gateway-address 10.212.0.1;
                 }
             }
@@ -278,7 +380,7 @@ interfaces {
         }
         unit 213 {
             family inet {
-                address 10.213.0.5/16 {
+                address 10.213.0.2/16 {
                     virtual-gateway-address 10.213.0.1;
                 }
             }
@@ -286,7 +388,7 @@ interfaces {
         }
         unit 214 {
             family inet {
-                address 10.214.0.5/16 {
+                address 10.214.0.2/16 {
                     virtual-gateway-address 10.214.0.1;
                 }
             }
@@ -294,7 +396,7 @@ interfaces {
         }
         unit 215 {
             family inet {
-                address 10.215.0.5/16 {
+                address 10.215.0.2/16 {
                     virtual-gateway-address 10.215.0.1;
                 }
             }
@@ -302,7 +404,7 @@ interfaces {
         }
         unit 216 {
             family inet {
-                address 10.216.0.5/16 {
+                address 10.216.0.2/16 {
                     virtual-gateway-address 10.216.0.1;
                 }
             }
@@ -310,7 +412,7 @@ interfaces {
         }
         unit 217 {
             family inet {
-                address 10.217.0.5/16 {
+                address 10.217.0.2/16 {
                     virtual-gateway-address 10.217.0.1;
                 }
             }
@@ -318,7 +420,7 @@ interfaces {
         }
         unit 218 {
             family inet {
-                address 10.218.0.5/16 {
+                address 10.218.0.2/16 {
                     virtual-gateway-address 10.218.0.1;
                 }
             }
@@ -326,7 +428,7 @@ interfaces {
         }
         unit 219 {
             family inet {
-                address 10.219.0.5/16 {
+                address 10.219.0.2/16 {
                     virtual-gateway-address 10.219.0.1;
                 }
             }
@@ -334,7 +436,7 @@ interfaces {
         }
         unit 220 {
             family inet {
-                address 10.220.0.5/16 {
+                address 10.220.0.2/16 {
                     virtual-gateway-address 10.220.0.1;
                 }
             }
@@ -342,7 +444,7 @@ interfaces {
         }
         unit 221 {
             family inet {
-                address 10.221.0.5/16 {
+                address 10.221.0.2/16 {
                     virtual-gateway-address 10.221.0.1;
                 }
             }
@@ -350,7 +452,7 @@ interfaces {
         }
         unit 222 {
             family inet {
-                address 10.222.0.5/16 {
+                address 10.222.0.2/16 {
                     virtual-gateway-address 10.222.0.1;
                 }
             }
@@ -358,7 +460,7 @@ interfaces {
         }
         unit 223 {
             family inet {
-                address 10.223.0.5/16 {
+                address 10.223.0.2/16 {
                     virtual-gateway-address 10.223.0.1;
                 }
             }
@@ -366,7 +468,7 @@ interfaces {
         }
         unit 224 {
             family inet {
-                address 10.224.0.5/16 {
+                address 10.224.0.2/16 {
                     virtual-gateway-address 10.224.0.1;
                 }
             }
@@ -374,7 +476,7 @@ interfaces {
         }
         unit 225 {
             family inet {
-                address 10.225.0.5/16 {
+                address 10.225.0.2/16 {
                     virtual-gateway-address 10.225.0.1;
                 }
             }
@@ -382,7 +484,7 @@ interfaces {
         }
         unit 226 {
             family inet {
-                address 10.226.0.5/16 {
+                address 10.226.0.2/16 {
                     virtual-gateway-address 10.226.0.1;
                 }
             }
@@ -390,7 +492,7 @@ interfaces {
         }
         unit 227 {
             family inet {
-                address 10.227.0.5/16 {
+                address 10.227.0.2/16 {
                     virtual-gateway-address 10.227.0.1;
                 }
             }
@@ -398,7 +500,7 @@ interfaces {
         }
         unit 228 {
             family inet {
-                address 10.228.0.5/16 {
+                address 10.228.0.2/16 {
                     virtual-gateway-address 10.228.0.1;
                 }
             }
@@ -406,7 +508,7 @@ interfaces {
         }
         unit 229 {
             family inet {
-                address 10.229.0.5/16 {
+                address 10.229.0.2/16 {
                     virtual-gateway-address 10.229.0.1;
                 }
             }
@@ -414,7 +516,7 @@ interfaces {
         }
         unit 230 {
             family inet {
-                address 10.230.0.5/16 {
+                address 10.230.0.2/16 {
                     virtual-gateway-address 10.230.0.1;
                 }
             }
@@ -422,7 +524,7 @@ interfaces {
         }
         unit 231 {
             family inet {
-                address 10.231.0.5/16 {
+                address 10.231.0.2/16 {
                     virtual-gateway-address 10.231.0.1;
                 }
             }
@@ -430,7 +532,7 @@ interfaces {
         }
         unit 232 {
             family inet {
-                address 10.232.0.5/16 {
+                address 10.232.0.2/16 {
                     virtual-gateway-address 10.232.0.1;
                 }
             }
@@ -438,7 +540,7 @@ interfaces {
         }
         unit 233 {
             family inet {
-                address 10.233.0.5/16 {
+                address 10.233.0.2/16 {
                     virtual-gateway-address 10.233.0.1;
                 }
             }
@@ -446,7 +548,7 @@ interfaces {
         }
         unit 234 {
             family inet {
-                address 10.234.0.5/16 {
+                address 10.234.0.2/16 {
                     virtual-gateway-address 10.234.0.1;
                 }
             }
@@ -454,7 +556,7 @@ interfaces {
         }
         unit 235 {
             family inet {
-                address 10.235.0.5/16 {
+                address 10.235.0.2/16 {
                     virtual-gateway-address 10.235.0.1;
                 }
             }
@@ -462,7 +564,7 @@ interfaces {
         }
         unit 236 {
             family inet {
-                address 10.236.0.5/16 {
+                address 10.236.0.2/16 {
                     virtual-gateway-address 10.236.0.1;
                 }
             }
@@ -470,7 +572,7 @@ interfaces {
         }
         unit 237 {
             family inet {
-                address 10.237.0.5/16 {
+                address 10.237.0.2/16 {
                     virtual-gateway-address 10.237.0.1;
                 }
             }
@@ -478,7 +580,7 @@ interfaces {
         }
         unit 238 {
             family inet {
-                address 10.238.0.5/16 {
+                address 10.238.0.2/16 {
                     virtual-gateway-address 10.238.0.1;
                 }
             }
@@ -486,7 +588,7 @@ interfaces {
         }
         unit 239 {
             family inet {
-                address 10.239.0.5/16 {
+                address 10.239.0.2/16 {
                     virtual-gateway-address 10.239.0.1;
                 }
             }
@@ -494,7 +596,7 @@ interfaces {
         }
         unit 240 {
             family inet {
-                address 10.240.0.5/16 {
+                address 10.240.0.2/16 {
                     virtual-gateway-address 10.240.0.1;
                 }
             }
@@ -502,7 +604,7 @@ interfaces {
         }
         unit 241 {
             family inet {
-                address 10.241.0.5/16 {
+                address 10.241.0.2/16 {
                     virtual-gateway-address 10.241.0.1;
                 }
             }
@@ -510,7 +612,7 @@ interfaces {
         }
         unit 242 {
             family inet {
-                address 10.242.0.5/16 {
+                address 10.242.0.2/16 {
                     virtual-gateway-address 10.242.0.1;
                 }
             }
@@ -518,7 +620,7 @@ interfaces {
         }
         unit 243 {
             family inet {
-                address 10.243.0.5/16 {
+                address 10.243.0.2/16 {
                     virtual-gateway-address 10.243.0.1;
                 }
             }
@@ -526,7 +628,7 @@ interfaces {
         }
         unit 244 {
             family inet {
-                address 10.244.0.5/16 {
+                address 10.244.0.2/16 {
                     virtual-gateway-address 10.244.0.1;
                 }
             }
@@ -534,7 +636,7 @@ interfaces {
         }
         unit 245 {
             family inet {
-                address 10.245.0.5/16 {
+                address 10.245.0.2/16 {
                     virtual-gateway-address 10.245.0.1;
                 }
             }
@@ -542,7 +644,7 @@ interfaces {
         }
         unit 246 {
             family inet {
-                address 10.246.0.5/16 {
+                address 10.246.0.2/16 {
                     virtual-gateway-address 10.246.0.1;
                 }
             }
@@ -550,7 +652,7 @@ interfaces {
         }
         unit 247 {
             family inet {
-                address 10.247.0.5/16 {
+                address 10.247.0.2/16 {
                     virtual-gateway-address 10.247.0.1;
                 }
             }
@@ -558,7 +660,7 @@ interfaces {
         }
         unit 248 {
             family inet {
-                address 10.248.0.5/16 {
+                address 10.248.0.2/16 {
                     virtual-gateway-address 10.248.0.1;
                 }
             }
@@ -566,7 +668,7 @@ interfaces {
         }
         unit 249 {
             family inet {
-                address 10.249.0.5/16 {
+                address 10.249.0.2/16 {
                     virtual-gateway-address 10.249.0.1;
                 }
             }
@@ -574,7 +676,7 @@ interfaces {
         }
         unit 250 {
             family inet {
-                address 10.250.0.5/16 {
+                address 10.250.0.2/16 {
                     virtual-gateway-address 10.250.0.1;
                 }
             }
@@ -584,15 +686,27 @@ interfaces {
     lo0 {
         unit 0 {
             family inet {
-                address 100.2.2.2/32;
+                address 100.1.1.1/32;
             }
         }
     }
 }
 forwarding-options {
-    storm-control-profiles SC-PROFILE-1 {
-        all {
-            bandwidth-level 100;
+    analyzer {
+        MIRROR {
+            input {
+                ingress {
+                    interface ae0.0;
+                    interface xe-1/0/1.0;
+                }
+                egress {
+                    interface ae0.0;
+                    interface xe-1/0/1.0;
+                }
+            }
+            output {
+                interface xe-1/0/4.0;
+            }
         }
     }
     dhcp-relay {
@@ -608,10 +722,11 @@ forwarding-options {
     }
 }
 routing-options {
+    inactive: nonstop-routing;
     static {
         route 10.163.0.75/32 next-hop 10.161.39.254;
     }
-    router-id 100.2.2.2;
+    router-id 100.1.1.1;
     autonomous-system 65300;
     forwarding-table {
         export load-balance;
@@ -626,7 +741,7 @@ protocols {
     bgp {
         group IBGP-EVPN {
             type internal;
-            local-address 100.2.2.2;
+            local-address 100.1.1.1;
             family evpn {
                 signaling;
             }
@@ -638,18 +753,18 @@ protocols {
             multipath multiple-as;
             neighbor 100.3.3.2;
         }
-        group DC2-Core {
+        group DC1-Core {
             type external;
             export [ export-lo0 export-HOT-VLAN-to-COLD-VLAN ];
             peer-as 65000;
-            local-as 65304;
+            local-as 65301;
             bfd-liveness-detection {
                 minimum-interval 350;
                 multiplier 3;
                 session-mode automatic;
             }
             multipath multiple-as;
-            neighbor 10.2.2.9;
+            neighbor 10.1.1.9;
         }
     }
     pim {
@@ -808,9 +923,19 @@ protocols {
         interface irb.250 {
             distributed-dr;
         }
+        interface irb.201 {
+            distributed-dr;
+        }
+        interface irb.202 {
+            distributed-dr;
+        }
         join-load-balance;
     }
     evpn {
+        traceoptions {
+            file evpn.log size 10m files 5;
+            flag all;
+        }
         encapsulation vxlan;
         default-gateway do-not-advertise;
         extended-vni-list all;
@@ -966,6 +1091,12 @@ protocols {
         vlan VLAN250 {
             proxy;
         }
+        vlan VLAN201 {
+            proxy;
+        }
+        vlan VLAN202 {
+            proxy;
+        }
     }
 }
 policy-options {
@@ -973,7 +1104,7 @@ policy-options {
         term 1 {
             from {
                 protocol direct;
-                route-filter 0.0.0.0/0 prefix-length-range /16-/16;
+                route-filter 10.0.0.0/8 orlonger;
             }
             then accept;
         }
@@ -992,15 +1123,51 @@ policy-options {
         }
     }
 }
+firewall {
+    family inet {
+        filter DHCP-Block {
+            term 1 {
+                from {
+                    source-address {
+                        0.0.0.0/32;
+                    }
+                    destination-address {
+                        255.255.255.255/32;
+                    }
+                    protocol udp;
+                    destination-port 67;
+                }
+                then {
+                    count DHCP_Block;
+                    discard;
+                }
+            }
+        }
+    }
+}
 switch-options {
     vtep-source-interface lo0.0;
-    route-distinguisher 100.2.2.2:1;
+    route-distinguisher 100.1.1.1:1;
     vrf-target {
         target:1:100;
         auto;
     }
 }
 vlans {
+    VLAN201 {
+        vlan-id 201;
+        l3-interface irb.201;
+        vxlan {
+            vni 20201;
+        }
+    }
+    VLAN202 {
+        vlan-id 202;
+        l3-interface irb.202;
+        vxlan {
+            vni 20202;
+        }
+    }
     VLAN203 {
         vlan-id 203;
         l3-interface irb.203;
