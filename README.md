@@ -23,12 +23,12 @@ Content for an EVPN_DCI_automation demo
    - replace actual vlans configuration with the desirated state
 
 #### playbooks
-- **pb.render*.yml** playbooks render templates. They dont connect to junos devices
+- **pb.renderxxx.yml** playbooks render templates. They dont connect to junos devices
 - **pb.rollback.yml** playbook performs a rollback on junos devices. 
 - **pb.addvlans.yml** playbook configure the devices with new vlans
-- **pb.removevlans.yml** playbook removes vlans from devices
+- **pb.removevlans.yml** playbook removes existing vlans from devices
 - **pb.check.vlans.yml** playbook checks from devices operationnal states if vlans are presents
-- **pb.replacevlans.yml** playbook enforces the desirated state on the devices
+- **pb.replacevlans.yml** playbook enforces the desirated state on the devices (which is the best approach vs **pb.addvlans.yml** + **pb.removevlans.yml**)
 - **pb.get.junos.facts.yml** playbook gets the junos facts from the devices  
   
 ### how to clone this repo: 
