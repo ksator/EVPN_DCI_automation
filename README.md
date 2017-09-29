@@ -4,8 +4,18 @@ Content for an EVPN_DCI_automation demo
 ### What to find in this repo: 
 ansible playbooks are pb.*.yml files at the root of the repository.    
 ansible inventory file is hosts file at the root of the repository.    
-jinja templates are j2 files in the directory templates  
-variables are yml files under group_vars and host_vars directories 
+ansible configuration file is ansible.cfg at the root of the repository.   
+jinja templates are j2 files in the directory templates.    
+variables are yml files under group_vars and host_vars directories.   
+
+#### templates
+https://github.com/ksator/EVPN_DCI_automation/tree/master/templates 
+
+#### variables 
+
+#### playbooks
+
+
 
 ### how to clone this repo: 
 ```
