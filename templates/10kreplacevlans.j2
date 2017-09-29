@@ -1,0 +1,64 @@
+replace:
+vlans {
+{% for item in vlanlist %}
+    {{ item.name }} {
+        vlan-id {{ item.id }};
+        l3-interface irb.{{ item.id }};
+        vxlan {
+            vni {{ item.vni }};
+        }
+    }
+{% endfor %}
+{% if vlanspecific is defined %}
+{% for item in vlanspecific %}
+    {{ item.name }} {
+        vlan-id {{ item.id }};
+    }
+{% endfor %}
+{% endif %}
+}
+interfaces {
+    replace:
+    irb {
+{% for item in vlanlist %}
+        unit {{ item.id }} {
+            family inet {
+                address {{ item.subnet | ipaddr(address) }} {
+                    virtual-gateway-address {{ item.virtual_ip }};
+                }
+            }
+            virtual-gateway-v4-mac {{ item.virtual_mac }};
+        }
+{% endfor %}
+    }
+}
+protocols {
+    replace:
+    pim {
+{% for item in vlanlist %}
+        interface irb.{{ item.id }} {
+            distributed-dr;
+           }
+{% endfor %}
+        rp {
+            static {
+                address 100.1.1.254;
+           }
+        }
+        interface all {
+            mode sparse;
+           }
+        interface fxp0.0 {
+           disable;
+           }
+        join-load-balance;
+    }
+    replace:
+    igmp-snooping {
+{% for item in vlanlist %}
+        vlan {{ item.name }} {
+            proxy;
+        }
+{% endfor %}
+    }
+}

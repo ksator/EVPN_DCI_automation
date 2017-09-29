@@ -1,11 +1,11 @@
-## Last changed: 2017-09-29 02:33:59 PDT
+## Last changed: 2017-09-29 04:37:40 PDT
 ## Image name: jinstall-qfx-5-14.1X53-D45.3-domestic-signed.tgz
 
 version 14.1X53-D45.3;
 groups {
     global {
         system {
-            host-name QFX5100-48S3-11;
+            host-name QFX5100-48S3-24;
             domain-name jnpr.net;
             backup-router 10.161.39.254 destination 0.0.0.0/0;
             time-zone America/Los_Angeles;
@@ -52,7 +52,7 @@ groups {
             em0 {
                 unit 0 {
                     family inet {
-                        address 10.161.32.243/21;
+                        address 10.161.34.13/21;
                     }
                 }
             }
@@ -106,37 +106,31 @@ chassis {
 interfaces {
     xe-0/0/0 {
         ether-options {
-            802.3ad ae0;
+            802.3ad ae2;
         }
     }
     xe-0/0/1 {
         ether-options {
-            802.3ad ae0;
+            802.3ad ae2;
         }
     }
     xe-0/0/2 {
-        mtu 9216;
-        unit 0 {
-            family ethernet-switching {
-                interface-mode trunk;
-                vlan {
-                    members all;
-                }
-            }
+        ether-options {
+            802.3ad ae1;
         }
     }
-    xe-0/0/3 {
-        mtu 9216;
-        unit 0 {
-            family ethernet-switching {
-                interface-mode trunk;
-                vlan {
-                    members all;
-                }
-            }
+    et-0/0/48 {
+        ether-options {
+            802.3ad ae0;
+        }
+    }
+    et-0/0/49 {
+        ether-options {
+            802.3ad ae0;
         }
     }
     ae0 {
+        disable;
         mtu 9216;
         aggregated-ether-options {
             lacp {
@@ -145,6 +139,29 @@ interfaces {
             }
         }
         unit 0 {
+            family inet {
+                address 10.10.10.2/30;
+            }
+        }
+    }
+    ae1 {
+        disable;
+        mtu 9216;
+        aggregated-ether-options {
+            lacp {
+                active;
+                system-id 00:01:02:03:04:05;
+                admin-key 1;
+            }
+            mc-ae {
+                mc-ae-id 1;
+                chassis-id 1;
+                mode active-active;
+                status-control standby;
+                init-delay-time 240;
+            }
+        }
+        unit 0 {
             family ethernet-switching {
                 interface-mode trunk;
                 vlan {
@@ -153,6 +170,44 @@ interfaces {
             }
         }
     }
+    ae2 {
+        disable;
+        mtu 9216;
+        aggregated-ether-options {
+            lacp {
+                active;
+                system-id 00:01:02:03:04:05;
+                admin-key 2;
+            }
+            mc-ae {
+                mc-ae-id 2;
+                chassis-id 1;
+                mode active-active;
+                status-control standby;
+                init-delay-time 240;
+            }
+        }
+        unit 0 {
+            family ethernet-switching {
+                interface-mode trunk;
+                vlan {
+                    members all;
+                }
+            }
+        }
+    }
+    lo0 {
+        unit 0 {
+            family inet {
+                address 100.2.2.24/32;
+            }
+        }
+    }
+}
+multi-chassis {
+    multi-chassis-protection 10.10.10.1 {
+        interface ae0;
+    }
 }
 routing-options {
     forwarding-table {
@@ -160,8 +215,26 @@ routing-options {
     }
 }
 protocols {
-    igmp {
-        interface all;
+    ospf {
+        area 0.0.0.0 {
+            interface lo0.0;
+            interface ae0.0;
+        }
+    }
+    iccp {
+        local-ip-addr 10.10.10.2;
+        peer 10.10.10.1 {
+            session-establishment-hold-time 50;
+            backup-liveness-detection {
+                backup-peer-ip 10.161.34.12;
+            }
+            liveness-detection {
+                minimum-receive-interval 1000;
+                transmit-interval {
+                    minimum-interval 1000;
+                }
+            }
+        }
     }
     lldp {
         interface all;
@@ -176,6 +249,9 @@ policy-options {
             load-balance per-packet;
         }
     }
+}
+switch-options {
+    service-id 10;
 }
 vlans {
     V300 {
