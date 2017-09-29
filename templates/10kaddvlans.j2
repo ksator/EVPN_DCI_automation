@@ -16,7 +16,7 @@ interfaces {
                     virtual-gateway-address {{ item.virtual_ip }};
                 }
             }
-            virtual-gateway-v4-mac {{ item.virtual_mac }};
+            virtual-gateway-v4-mac {{ item.subnet | ipaddr('address') }};
         }
     }
 }
