@@ -13,7 +13,7 @@ interfaces {
         unit {{ item.id }} {
             family inet {
                 address {{ item.subnet | ipaddr(address) }} {
-                    virtual-gateway-address {{ item.virtual_ip }};
+                    virtual-gateway-address {{ item.subnet | ipaddr('1') | ipaddr('address') }};
                 }
             }
             virtual-gateway-v4-mac {{ item.virtual_mac }};
