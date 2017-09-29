@@ -2,6 +2,8 @@
 Content for an EVPN_DCI_automation demo 
 
 ### What to find in this repo: 
+
+#### Structure 
 - ansible playbooks are **pb.*.yml** files at the root of the repository.    
 - ansible inventory file is [**hosts**](https://github.com/ksator/EVPN_DCI_automation/blob/master/hosts) file at the root of the repository.    
 - ansible configuration file is [**ansible.cfg**](https://github.com/ksator/EVPN_DCI_automation/blob/master/ansible.cfg) at the root of the repository.   
@@ -9,13 +11,25 @@ Content for an EVPN_DCI_automation demo
 - variables are yml files under [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) and [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars) directories.   
 
 #### templates
+- 10k*.j2 templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX10k specifics to:
+ - add new vlans
+ - remove existing vlans
+ - replace actual vlans configuration with the desirated state
+- 5k*.j2 templates in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates) are QFX5k specifics
 
 #### variables 
+- host specific varaibles are yml files under the directory [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars) directories.   
+- group related variables are yml files under the directory [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) 
 
 #### playbooks
-
-
-
+- **pb.render*.yml** playbooks render templates. They dont connect to junos devices
+- **pb.rollback.yml** playbook performs a rollback on junos devices. 
+- **pb.addvlans.yml** playbook configure the devices with new vlans
+- **pb.removevlans.yml** playbook removes vlans from devices
+- **pb.check.vlans.yml** playbook checks from devices operationnal states if vlans are presents
+- **pb.replacevlans.yml** playbook enforces the desirated state on the device
+- **pb.get.junos.facts.yml** playbook gets the junos facts from the device  
+  
 ### how to clone this repo: 
 ```
 git clone https://github.com/ksator/EVPN_DCI_automation.git  
