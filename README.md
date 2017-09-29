@@ -24,7 +24,7 @@ Content for an EVPN_DCI_automation demo
 
 #### playbooks
 - **pb.renderxxx.yml** playbooks render templates. They dont connect to junos devices
-- **pb.rollback.yml** playbook performs a rollback on junos devices. 
+- [**pb.rollback.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.rollback.yml) playbook performs a rollback on junos devices. 
 - **pb.addvlans.yml** playbook configures the devices with new vlans
 - **pb.removevlans.yml** playbook removes existing vlans from devices
 - **pb.check.vlans.yml** playbook checks if vlans are presents from devices operationnal states
