@@ -1,1 +1,5 @@
 *.retry
+*.json
+*.diff
+*.set
+*.conf
