@@ -1,0 +1,26 @@
+---
+ - name: create rollabck directory
+   hosts: localhost
+   gather_facts: no
+   tasks:
+   - name: create rollback directory
+     file: 
+       path: "{{playbook_dir}}/rollback" 
+       state: directory
+
+ - name: Rollback junos configuration
+   hosts: all 
+   roles:       
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+   tasks:
+   - name: Rollback junos config task
+     junos_rollback:
+      host: "{{ junos_host }}"
+      user: "{{ ADMUSER }}"
+      passwd: "{{ ADMPASS }}"
+      diffs_file: "{{ playbook_dir }}/rollback/{{ inventory_hostname }}.diff"
+      rollback: "{{ rbid }}" 
+      comment: "configuration rolled back by Ansible"
+

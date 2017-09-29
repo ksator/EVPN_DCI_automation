@@ -1,4 +1,4 @@
-## Last changed: 2017-09-29 02:10:31 PDT
+## Last changed: 2017-09-29 02:33:00 PDT
 ## Image name: jinstall-qfx-5-14.1X53-D45.3-domestic-signed.tgz
 
 version 14.1X53-D45.3;
@@ -180,13 +180,6 @@ policy-options {
 vlans {
     V300 {
         vlan-id 300;
-    }
-    VLAN201 {
-        vlan-id 201;
-        l3-interface irb.201;
-    }
-    VLAN202 {
-        vlan-id 202;
     }
     VLAN203 {
         vlan-id 203;
