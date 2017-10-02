@@ -1,5 +1,5 @@
 ### What to find in this repo: 
-Content for an EVPN_DCI_automation demo:
+Network automation content for an EVPN_DCI_automation demo:
 - on network devices running Junos
 - using Ansible, Jinja, YAML, Python.
 
