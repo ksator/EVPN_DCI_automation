@@ -1,1 +1,6 @@
 address: 2
+ebgp: 
+ - neighbor: 10.1.1.9
+ibgp: 
+ - neighbor: 100.3.3.2
+

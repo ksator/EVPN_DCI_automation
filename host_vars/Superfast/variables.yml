@@ -2,4 +2,8 @@ address: 3
 vlanspecific:
 - name: VLAN2000
   id: 2000
+ebgp: 
+ - neighbor: 10.1.1.11
+ibgp: 
+ - neighbor: 100.3.3.2
 

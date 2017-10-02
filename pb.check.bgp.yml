@@ -1,0 +1,31 @@
+---
+ - name: check bgp states
+   hosts: QFX10k
+   connection: local
+   gather_facts: no
+
+   tasks:
+   - name: check if ebgp neighbors are established
+     junos_command:
+      provider: "{{ credentials }}"
+      commands:
+       - show bgp neighbor "{{ item.neighbor }}"
+      waitfor:
+      - "result[0].bgp-information.bgp-peer.peer-state eq Established"
+      retries: 10
+      interval: 1
+     with_items:
+       - "{{ ebgp }}"
+
+   - name: check if ibgp neighbors are established
+     junos_command:
+      provider: "{{  credentials }}"
+      commands:
+       - show bgp neighbor "{{ item.neighbor }}"
+      waitfor:
+      - "result[0].bgp-information.bgp-peer.peer-state eq Established"
+      retries: 10
+      interval: 1
+     with_items:
+       - "{{ ibgp }}"
+
