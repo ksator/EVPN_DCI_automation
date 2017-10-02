@@ -8,7 +8,7 @@ Vlan-id	Subnet
 202	10.202.0.0/16
 203	10.203.0.0/16
 this python script generates the yaml file group_vars/all/test.yml
-vlanlist:
+vlanlisttest:
 - id: 201
   name: VLAN201
   subnet: 10.201.0.0/16
@@ -97,7 +97,7 @@ for i in reader:
 '''
 
 out_file = open('group_vars/all/test.yml', "w")
-out_file.write("vlanlist:\n")
+out_file.write("vlanlisttest:\n")
 out_file.write(yaml.dump(items, default_flow_style=False))
 out_file.close()
 in_file.close()
