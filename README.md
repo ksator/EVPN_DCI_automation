@@ -81,16 +81,18 @@ ls backup
 ansible-playbook pb.check.vlans.yml
 ```
 ##### enforce desirated state: 
-```ansible-playbook pb.replacevlans.yml
+```
+ansible-playbook pb.replacevlans.yml
 ls backup
 ```
-##### rollaback the setup for the next demo: 
+##### rollback the setup for the next demo: 
 ```
 ansible-playbook pb.rollaback --extra-vars rbid=1 
 ls rollback
 ```
-##### login on junis devices and run some show commands: 
-```show system commit
+##### login on junos devices and run some show commands: 
+```
+show system commit
 show configuration | compare rollback 1
 show configuration vlans 
 ...
@@ -101,7 +103,7 @@ show configuration vlans
 ```
 ansible-playbook pb.check.bgp.yml 
 ```
-###### get facts
+###### get junos facts
 ```
 ansible-playbook pb.get.junos.facts.yml
 ls inventory
