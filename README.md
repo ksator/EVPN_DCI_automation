@@ -9,8 +9,8 @@ Network automation content for an EVPN DCI demo:
 - ansible configuration file is [**ansible.cfg**](https://github.com/ksator/EVPN_DCI_automation/blob/master/ansible.cfg) at the root of the repository.   
 - jinja templates are j2 files in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates).    
 - variables are yml files under [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) and [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars) directories.   
-- templates are rendered into the directory [render](https://github.com/ksator/EVPN_DCI_automation/tree/master/render)
-- Junos configuration files are saved automatically before any change into the directory [backup](https://github.com/ksator/EVPN_DCI_automation/tree/master/backup)
+- templates are rendered into the directory [**render**](https://github.com/ksator/EVPN_DCI_automation/tree/master/render)
+- Junos configuration files are saved automatically before any change into the directory [**backup**](https://github.com/ksator/EVPN_DCI_automation/tree/master/backup)
 
 #### variables 
 - host specific variables are yml files under the directory [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars).   
@@ -27,6 +27,7 @@ Network automation content for an EVPN DCI demo:
    - replace actual vlans configuration with the desirated state: [5kreplacevlans.j2](https://github.com/ksator/EVPN_DCI_automation/blob/master/templates/5kreplacevlans.j2)
 
 #### playbooks
+Playbooks are at the root of the repositories.
 - **pb.renderxxx.yml** playbooks render templates. They dont connect to junos devices
 - [**pb.rollback.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.rollback.yml) playbook performs a rollback on junos devices. 
 - [**pb.addvlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderaddvlans.yml) playbook configures the devices with new vlans
@@ -47,13 +48,28 @@ install junos-eznc (pyez) and its dependencies
 #### Junos requirement: 
 Enable netconf and make sure you can reach that port on the juniper device  from your laptop  
 
-#### Demo 
+#### How to demo it 
 
 ##### get the repo content locally: 
 ```
 git clone https://github.com/ksator/EVPN_DCI_automation.git  
 cd EVPN_DCI_automation
 sudo -s
+```
+##### get junos facts
+```
+ansible-playbook pb.get.junos.facts.yml
+ls inventory
+```
+
+##### verify bgp session states are Established 
+```
+ansible-playbook pb.check.bgp.yml 
+```
+
+##### verify vlans are configured on devices
+```
+ansible-playbook pb.check.vlans.yml
 ```
 
 ##### render the templates locally if you want to see the configuration files that are going to be generated: 
@@ -98,17 +114,6 @@ show system commit
 show configuration | compare rollback 1
 show configuration vlans 
 ...
-```
-##### additionnal playbooks: 
-
-###### verify bgp session states are Established 
-```
-ansible-playbook pb.check.bgp.yml 
-```
-###### get junos facts
-```
-ansible-playbook pb.get.junos.facts.yml
-ls inventory
 ```
 
 ### Looking for more details about junos automation with Ansible?
