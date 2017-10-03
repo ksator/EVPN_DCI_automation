@@ -36,11 +36,6 @@ Network automation content for an EVPN DCI demo:
   
 ### Usage
 
-#### how to clone this repo: 
-```
-git clone https://github.com/ksator/EVPN_DCI_automation.git  
-cd EVPN_DCI_automation
-```
 #### requirements on ubuntu:  
 sudo pip install ansible==2.2.3  
 sudo ansible-galaxy install Juniper.junos    
@@ -59,7 +54,7 @@ cd EVPN_DCI_automation
 sudo -s
 ```
 
-##### render the templates locally if you want to see what is going to be generated: 
+##### render the templates locally if you want to see the configuration files that are going to be generated: 
 ```
 ansible-playbook pb.renderremovevlans.yml
 ls render/*_removevlans.set
