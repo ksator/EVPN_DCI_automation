@@ -9,6 +9,8 @@ Network automation content for an EVPN DCI demo:
 - ansible configuration file is [**ansible.cfg**](https://github.com/ksator/EVPN_DCI_automation/blob/master/ansible.cfg) at the root of the repository.   
 - jinja templates are j2 files in the directory [**templates**](https://github.com/ksator/EVPN_DCI_automation/tree/master/templates).    
 - variables are yml files under [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) and [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars) directories.   
+- templates are rendered into the directory [render](https://github.com/ksator/EVPN_DCI_automation/tree/master/render)
+- Junos configuration files are saved automatically before any change into the directory [backup](https://github.com/ksator/EVPN_DCI_automation/tree/master/backup)
 
 #### variables 
 - host specific variables are yml files under the directory [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars).   
