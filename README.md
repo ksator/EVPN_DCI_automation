@@ -34,19 +34,83 @@ Network automation content for an EVPN DCI demo:
 - [**pb.replacevlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.replacevlans.yml) playbook enforces the desirated state on the devices (which is the best approach vs using [**pb.addvlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderaddvlans.yml) + [**pb.removevlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.removevlans.yml))
 - [**pb.get.junos.facts.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.get.junos.facts.yml) playbook gets the junos facts from the devices  
   
-### how to clone this repo: 
+### Usage
+
+#### how to clone this repo: 
 ```
 git clone https://github.com/ksator/EVPN_DCI_automation.git  
 cd EVPN_DCI_automation
 ```
-### requirements on ubuntu:  
+#### requirements on ubuntu:  
 sudo pip install ansible==2.2.3  
 sudo ansible-galaxy install Juniper.junos    
 sudo pip install jxmlease  
 install junos-eznc (pyez) and its dependencies  
  
-### Junos requirement: 
+#### Junos requirement: 
 Enable netconf and make sure you can reach that port on the juniper device  from your laptop  
+
+#### Demo 
+
+##### get the repo content locally: 
+```
+git clone https://github.com/ksator/EVPN_DCI_automation.git  
+cd EVPN_DCI_automation
+sudo -s
+```
+
+##### render the templates locally if you want to see what is going to be generated: 
+```
+ansible-playbook pb.renderremovevlans.yml
+ls render/*_removevlans.set
+ansible-playbook pb.renderaddvlans.yml
+ls render/*_addvlans.conf
+ansible-playbook pb.renderreplacevlans.yml
+ls render/*_replacevlans.conf
+```
+
+##### execute this playbook in dry-run mode to know what changes will happens:
+```
+ansible-playbook pb.removevlans.yml --check --diff 
+```
+##### remove vlans: 
+```
+ansible-playbook pb.check.vlans.yml
+ansible-playbook pb.removevlans.yml 
+ls backup
+```
+##### add vlans: 
+```
+ansible-playbook pb.addvlans.yml
+ls backup
+ansible-playbook pb.check.vlans.yml
+```
+##### enforce desirated state: 
+```ansible-playbook pb.replacevlans.yml
+ls backup
+```
+##### rollaback the setup for the next demo: 
+```
+ansible-playbook pb.rollaback --extra-vars rbid=1 
+ls rollback
+```
+##### login on junis devices and run some show commands: 
+```show system commit
+show configuration | compare rollback 1
+show configuration vlans 
+...
+```
+##### additionnal playbooks: 
+
+###### verify bgp session states are Established 
+```
+ansible-playbook pb.check.bgp.yml 
+```
+###### get facts
+```
+ansible-playbook pb.get.junos.facts.yml
+ls inventory
+```
 
 ### Looking for more details about junos automation with Ansible?
 You can visit these repositories:   
