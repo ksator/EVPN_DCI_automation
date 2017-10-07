@@ -11,6 +11,8 @@ Network automation content for an EVPN DCI demo:
 - variables are yml files under [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) and [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars) directories.   
 - templates are rendered into the directory [**render**](https://github.com/ksator/EVPN_DCI_automation/tree/master/render)
 - Junos configuration files are saved automatically before any change into the directory [**backup**](https://github.com/ksator/EVPN_DCI_automation/tree/master/backup)
+- Python scripts are **xxx.py** files at the root of the repository
+- a CSV file at the root of the repository
 
 #### variables 
 - host specific variables are yml files under the directory [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars).   
@@ -36,7 +38,9 @@ Playbooks are at the root of the repositories.
 - [**pb.check.bgp.yml**](https://github.com/ksator/EVPN_DCI_automation//blob/master/pb.check.bgp.yml) playbook checks if BGP sessions are established  
 - [**pb.replacevlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.replacevlans.yml) playbook enforces the desirated state on the devices (which is the best approach vs using [**pb.addvlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderaddvlans.yml) + [**pb.removevlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.removevlans.yml))
 - [**pb.get.junos.facts.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.get.junos.facts.yml) playbook gets the junos facts from the devices  
-  
+
+#### Python scripts
+
 ### Usage
 
 #### requirements on ubuntu:  
@@ -98,7 +102,7 @@ ansible-playbook pb.addvlans.yml
 ls backup
 ansible-playbook pb.check.vlans.yml
 ```
-##### enforce desirated state: 
+##### enforce desired state: 
 ```
 ansible-playbook pb.replacevlans.yml
 ls backup
@@ -114,6 +118,17 @@ show system commit
 show configuration | compare rollback 1
 show configuration vlans 
 ...
+```
+##### generate yaml variables for ansible from a csv file
+Edit the [csv](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)
+Execute this python script 
+```
+python ./generate_yml_vars.py
+```
+check the variables 
+##### search for a mac address accross the network
+```
+python ./findmac.py 38:4f:49:f2:5f:fc
 ```
 
 ### Looking for more details about junos automation with Ansible?
