@@ -41,6 +41,8 @@ Playbooks are at the root of the repositories.
 - [**pb.get.junos.facts.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.get.junos.facts.yml) playbook gets the junos facts from the devices  
 
 #### Python scripts
+- [findmac.py]{https://github.com/ksator/EVPN_DCI_automation/blob/master/findmac.py) locates a mac address accross the network.  
+- [generate_yml_vars.py](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py) generates yaml variables for Ansible from the [CSV file](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv).  
 
 ### Usage
 
