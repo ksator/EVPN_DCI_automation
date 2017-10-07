@@ -11,8 +11,8 @@ Network automation content for an EVPN DCI demo:
 - variables are yml files under [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) and [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars) directories.   
 - templates are rendered into the directory [**render**](https://github.com/ksator/EVPN_DCI_automation/tree/master/render)
 - Junos configuration files are saved automatically before any change into the directory [**backup**](https://github.com/ksator/EVPN_DCI_automation/tree/master/backup)
-- Python scripts are **xxx.py** files at the root of the repository
-- a CSV file at the root of the repository
+- Python scripts are **xxx.py** files at the root of the repository  
+- a [**CSV**](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv) file at the root of the repository  
 
 #### variables 
 - host specific variables are yml files under the directory [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars).   
@@ -120,12 +120,12 @@ show configuration vlans
 ...
 ```
 ##### generate yaml variables for ansible from a csv file
-Edit the [csv](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)
+Edit the [csv](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)  
 Execute this python script 
 ```
 python ./generate_yml_vars.py
 ```
-check the variables 
+check the [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#variables)   
 ##### search for a mac address accross the network
 ```
 python ./findmac.py 38:4f:49:f2:5f:fc
