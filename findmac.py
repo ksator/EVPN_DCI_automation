@@ -53,7 +53,6 @@ devices_list=[]
 for item in temp_list:
    devices_list.append(item.split('junos_host=')[-1])
 
-
 for dev_item in devices_list:
     dev=Device(host=dev_item, user="jnpr", password="pass123")
     dev.open()
@@ -62,6 +61,7 @@ for dev_item in devices_list:
     #   type(result)
     #   print (etree.tostring(result))
     #   etree.dump(result)
+    #   result.xpath('count(//l2ng-mac-entry)')
     mac_list = result.findall('l2ng-l2ald-mac-entry-vlan/l2ng-mac-entry')
     #   type (mac_list)
     #   len (mac_list)
