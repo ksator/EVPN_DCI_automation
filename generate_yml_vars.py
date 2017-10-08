@@ -103,8 +103,8 @@ for i in reader:
 >>>
 '''
 
-out_file = open('group_vars/all/test.yml', "w")
-out_file.write("vlanlisttest:\n")
+out_file = open('group_vars/all/vlans.yml', "w")
+out_file.write("vlanlist:\n")
 out_file.write(yaml.dump(items, default_flow_style=False))
 out_file.close()
 in_file.close()
