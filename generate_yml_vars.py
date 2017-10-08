@@ -3,27 +3,30 @@ this python script generates yml files for Ansible (variables) from a csv file.
 the csv file is created by a human, this script generates yml files consumed by ansible (Ansible variables)  
 usage: python ./generate_yml_vars.py
 Example: using this test.csv file as input
-Vlan-id	Subnet
-201	10.201.0.0/16
-202	10.202.0.0/16
-203	10.203.0.0/16
-this python script generates the yaml file group_vars/all/test.yml
-vlanlisttest:
+Vlan-id	  Subnet          virtual_mac 
+201	  10.201.0.0/16   00:25:01:00:00:01
+202	  10.202.0.0/16   00:25:02:00:00:01
+203	  10.203.0.0/16   00:25:03:00:00:01
+this python script generates the yaml file group_vars/all/vlans.yml
+vlanlist:
 - id: 201
   name: VLAN201
   subnet: 10.201.0.0/16
   virtual_ip: 10.201.0.1
   vni: 20201
+  virtual_mac: 00:25:01:00:00:01
 - id: 202
   name: VLAN202
   subnet: 10.202.0.0/16
   virtual_ip: 10.202.0.1
   vni: 20202
+  virtual_mac: 00:25:02:00:00:01
 - id: 203
   name: VLAN203
   subnet: 10.203.0.0/16
   virtual_ip: 10.203.0.1
   vni: 20203
+  virtual_mac: 00:25:03:00:00:01
 '''
 
 import csv
@@ -38,10 +41,10 @@ reader = csv.reader(in_file)
 >>> for i in reader:
 ...   print i
 ...
-['Vlan-id', 'Subnet']
-['201', '10.201.0.0/16']
-['202', '10.202.0.0/16']
-['203', '10.203.0.0/16']
+['Vlan-id', 'Subnet', 'virtual_mac']
+['201', '10.201.0.0/16', '00:25:01:00:00:01']
+['202', '10.202.0.0/16', '00:25:02:00:00:01']
+['203', '10.203.0.0/16', '00:25:03:00:00:01']
 >>>
 
 >>> for i in reader:
@@ -60,9 +63,9 @@ next(reader)
 >>> for i in reader:
 ...  print i
 ...
-['201', '10.201.0.0/16']
-['202', '10.202.0.0/16']
-['203', '10.203.0.0/16']
+['201', '10.201.0.0/16', '00:25:01:00:00:01']
+['202', '10.202.0.0/16', '00:25:02:00:00:01']
+['203', '10.203.0.0/16', '00:25:03:00:00:01']
 >>>
 '''
 
@@ -71,9 +74,10 @@ for i in reader:
    id = int(i[0])
    vni = 20000 + int(i[0])
    subnet = i[1]
+   virtual_mac = i[2]
    name = 'VLAN' + str(id)
    virtual_ip= str(IPNetwork(subnet)[1])
-   item = {'name': name, 'id':id, 'vni': vni,'subnet': subnet, 'virtual_ip': virtual_ip}
+   item = {'name': name, 'id':id, 'vni': vni,'subnet': subnet, 'virtual_ip': virtual_ip, 'virtual_mac': virtual_mac}
    items.append(item)
 
 '''
@@ -82,16 +86,19 @@ for i in reader:
   'name': 'VLAN201',
   'subnet': '10.201.0.0/16',
   'virtual_ip': '10.201.0.1',
+  'virtual_mac': '00:25:01:00:00:01',
   'vni': 20201},
  {'id': 202,
   'name': 'VLAN202',
   'subnet': '10.202.0.0/16',
   'virtual_ip': '10.202.0.1',
+  'virtual_mac': '00:25:03:00:00:01'
   'vni': 20202},
  {'id': 203,
   'name': 'VLAN203',
   'subnet': '10.203.0.0/16',
   'virtual_ip': '10.203.0.1',
+  'virtual_mac': '00:25:03:00:00:01'
   'vni': 20203}]
 >>>
 '''
