@@ -3,26 +3,29 @@ python script to find where is a mac address
 it uses the ansible inventory file, login in all the device, and print where the mac address is.
 '''
 '''
-# python ./findmac.py 38:4f:49:f2:5f:fc
-Device: QFX5100-48S-6
-interfaces list: ['ae0.0']
-Device: QFX5100-48S3-11
-interfaces list: ['ae0.0']
-Device: QFX5100-48S3-21
-interfaces list: ['ae2.0']
-Device: QFX5100-48S3-23
-interfaces list: ['ae2.0']
-'''
-'''
-python ./findmac.py 00:25:05:00:00:01
-Device: Superfast-QFX
-interfaces list: ['esi.2164']
-Device: Dori-QFX
-interfaces list: ['esi.2170']
-Device: Theia-QFX
-interfaces list: ['esi.2149']
-Device: Nori-QFX
-interfaces list: ['esi.2156']
+python ./findmac.py 38:4f:49:f2:5f:fc
+
+38:4f:49:f2:5f:fc is not known by Superfast-QFX
+
+38:4f:49:f2:5f:fc is not known by Dori-QFX
+
+38:4f:49:f2:5f:fc is not known by Theia-QFX
+
+38:4f:49:f2:5f:fc is not known by Nori-QFX
+
+38:4f:49:f2:5f:fc is known by QFX5100-48S-6 via the list of interfaces ['ae0.0']
+
+38:4f:49:f2:5f:fc is known by QFX5100-48S3-11 via the list of interfaces ['ae0.0']
+
+38:4f:49:f2:5f:fc is known by QFX5100-48S3-21 via the list of interfaces ['ae2.0']
+
+38:4f:49:f2:5f:fc is not known by QFX5100-48S3-22
+
+38:4f:49:f2:5f:fc is known by QFX5100-48S3-23 via the list of interfaces ['ae2.0']
+
+38:4f:49:f2:5f:fc is not known by QFX5100-48S3-24
+
+lookup done accross 10 devices.
 '''
 from jnpr.junos import Device
 from lxml import etree
