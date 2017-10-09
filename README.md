@@ -3,7 +3,7 @@ Network automation content for an EVPN DCI demo:
 - on network devices running Junos (qfx5000 and qfx10000).  
 - using Ansible, Jinja, YAML, Python.
 
-This automation content is not to build the setup (build phase). The setup is already up and running. This is to update the existing setup (run phase) adding/removing/replacing vlans to the DCI configuration.   
+This automation content is not to build the setup (build phase). The setup is already up and running. This automation content is used to update the existing setup (i.e run phase) adding/removing/replacing vlans to the DCI configuration.   
 
 ### Repo structure 
 - ansible playbooks are **pb.xxx.yml** files at the root of the repository.    
