@@ -1,0 +1,43 @@
+language: python
+python:
+  - 2.7
+
+sudo: required
+dist: trusty
+
+env:
+  - ANSIBLE_VERSION=2.2.3.0  
+  
+before_install:
+  - sudo apt-get install -y python-dev libxml2-dev python-pip libxslt1-dev build-essential libssl-dev libffi-dev
+
+install:
+  - pip install -r requirements.txt
+  - pip install -q ansible==$ANSIBLE_VERSION
+  - ansible-galaxy --force install Juniper.junos -p ./
+
+script:
+  - ansible-playbook pb.renderaddvlans.yml
+  - ansible-playbook pb.renderremovevlans.yml
+  - ansible-playbook pb.renderreplacevlans.yml
+  - ansible-playbook pb.addvlans.yml --syntax-check
+  - ansible-playbook pb.replacevlans.yml --syntax-check
+  - ansible-playbook pb.check.bgp.yml --syntax-check
+  - ansible-playbook pb.rollback.yml --syntax-check 
+  - ansible-playbook pb.check.vlans.yml --syntax-check
+  - ansible-playbook pb.get.junos.facts.yml --syntax-check
+  - ansible-playbook pb.removevlans.yml --syntax-check
+  - python -m py_compile findmac.py
+  - python -m py_compile generate_yml_vars.py  
+
+branches:
+  only:
+   - master
+
+notifications:
+  email:
+    recipients:
+      - khelil.sator.git@gmail.com
+    on_failure: always
+  slack: 
+    ksator-junos:XAUJP6A29mgYtUtGIJQdPBS7
