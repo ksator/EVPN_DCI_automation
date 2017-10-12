@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ksator/EVPN_DCI_automation.svg?branch=master)](https://travis-ci.org/ksator/EVPN_DCI_automation)
+
 ### What to find in this repo: 
 Network automation content for an EVPN DCI demo:
 - on network devices running Junos (qfx5000 and qfx10000).  
