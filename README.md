@@ -148,4 +148,9 @@ https://github.com/dgjnpr/ansible-template-for-junos
 
 ### Continuous integration with Travis CI
 
-The Ansible playbooks and Python scripts in  this repository are tested automatically by [**Travis CI**]
+The Ansible playbooks and Python scripts in  this repository are tested automatically by [**Travis CI**](https://travis-ci.org/ksator/EVPN_DCI_automation)
+The files [**.travis.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/.travis.yml) and [**requirements.txt**](https://github.com/ksator/EVPN_DCI_automation/blob/master/requirements.txt) at the root of this repository are used for this.  
+For ansible playbooks that doesnt interact with Junos devices, they are run.  
+The command ansible-playbook has a built in option to check only the playbook's syntax (--syntax-check). Travis CI doesnt actually connect to the devices. This is how Travis is testing our playbooks that interact with Junos.  
+If there is a syntax error, Travis will fail the build and output the errors in the log. 
+Travis is also checking the syntax of my python scripts.  
