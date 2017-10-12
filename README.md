@@ -144,3 +144,6 @@ https://github.com/ksator/ansible-training-for-junos-automation
 https://github.com/JNPRAutomate/ansible-junos-examples  
 https://github.com/dgjnpr/ansible-template-for-junos  
 
+### Continuous integration with Travis CI
+
+The Ansible playbooks and Python scripts in  this repository are tested automatically by [**Travis CI**]
