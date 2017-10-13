@@ -157,5 +157,5 @@ The command ansible-playbook has a built in option to check only the playbook's 
 The same logic is applied to the python scripts.  
 
 ### Slack integration:  
-Github and TravisCI Slack integration:   
+Github activities and Travis CI results are posted to a Slack channel:   
 ![slack_integration.png](slack_integration.png)
