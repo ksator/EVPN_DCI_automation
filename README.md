@@ -136,6 +136,10 @@ Execute this python script
 python ./generate_yml_vars.py
 ```
 check the [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#variables)   
+```
+more group_vars/all/vlans.yml
+git diff group_vars/all/vlans.yml
+```
 ##### search for a mac address accross the network
 ```
 python ./findmac.py 38:4f:49:f2:5f:fc
