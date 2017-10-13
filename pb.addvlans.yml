@@ -44,6 +44,13 @@
        waitfor:
         - "result[0]['l2ng-l2ald-vlan-instance-information']['l2ng-l2ald-vlan-instance-group']['l2ng-l2rtb-vlan-name'] eq {{ item.name }}"
      with_items: "{{ vlanlist }}"
-
-
-
+     
+   - name: Send Slack notification
+     local_action:
+       module: slack
+       icon_url: "https://www.ansible.com/hs-fs/hub/330046/file-448313641-png/favicon.png"
+       token: T2MBN64JX/B7HR6LQMS/b3PLhcxoDg1RwXZq0N0QSpgg
+       username: "Ansible on {{ inventory_hostname }}"
+       channel: code
+       msg: "audit completed using pb.addvlans.yml"
+       validate_certs: false
