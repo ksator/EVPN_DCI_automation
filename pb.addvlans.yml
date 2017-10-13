@@ -10,9 +10,20 @@
      junos_template:
       provider: "{{  credentials }}"
       src: "{{ playbook_dir }}/templates/10kaddvlans.j2"
-      comment: "configuration from Ansible"
+      comment: "configuration from Ansible playbook pb.addvlans.yml"
       backup: true 
       config_format: text
+
+   - name: Send Slack notification
+     local_action:
+       module: slack
+       icon_url: "https://www.ansible.com/hs-fs/hub/330046/file-448313641-png/favicon.png"
+       token: T2MBN64JX/B7HR6LQMS/b3PLhcxoDg1RwXZq0N0QSpgg
+       username: "Ansible on {{ inventory_hostname }}"
+       channel: code
+       msg: "configuration committed successfully using pb.addvlans.yml"
+       validate_certs: false
+
 
  - name: add vlans on QFX5k
    hosts: QFX5k
@@ -25,9 +36,20 @@
      junos_template:
       provider: "{{  credentials }}"
       src: "{{ playbook_dir }}/templates/5kaddvlans.j2"
-      comment: "configuration from Ansible"
+      comment: "configuration from Ansible playbook pb.addvlans.yml"
       backup: true
       config_format: text
+
+   - name: Send Slack notification
+     local_action:
+       module: slack
+       icon_url: "https://www.ansible.com/hs-fs/hub/330046/file-448313641-png/favicon.png"
+       token: T2MBN64JX/B7HR6LQMS/b3PLhcxoDg1RwXZq0N0QSpgg
+       username: "Ansible on {{ inventory_hostname }}"
+       channel: code
+       msg: "configuration committed successfully using pb.addvlans.yml"
+       validate_certs: false
+
 
  - name: check from devices operationnal state if desirated vlans are presents
    hosts: all

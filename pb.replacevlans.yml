@@ -10,10 +10,21 @@
      junos_template:
       provider: "{{  credentials }}"
       src: "{{ playbook_dir }}/templates/10kreplacevlans.j2"
-      comment: "configuration from Ansible"
+      comment: "configuration from Ansible using playbook pb.replacevlans.yml"
       backup: true
       action: replace 
       config_format: text
+
+   - name: Send Slack notification
+     local_action:
+       module: slack
+       icon_url: "https://www.ansible.com/hs-fs/hub/330046/file-448313641-png/favicon.png"
+       token: T2MBN64JX/B7HR6LQMS/b3PLhcxoDg1RwXZq0N0QSpgg
+       username: "Ansible on {{ inventory_hostname }}"
+       channel: code
+       msg: "configuration committed successfully using pb.replacevlans.yml"
+       validate_certs: false
+
 
  - name: replace vlans on QFX5k
    hosts: QFX5k
@@ -26,10 +37,21 @@
      junos_template:
       provider: "{{  credentials }}"
       src: "{{ playbook_dir }}/templates/5kreplacevlans.j2"
-      comment: "configuration from Ansible"
+      comment: "configuration from Ansible using playbook pb.replacevlans.yml"
       backup: true
       config_format: text
       action: replace
+
+   - name: Send Slack notification
+     local_action:
+       module: slack
+       icon_url: "https://www.ansible.com/hs-fs/hub/330046/file-448313641-png/favicon.png"
+       token: T2MBN64JX/B7HR6LQMS/b3PLhcxoDg1RwXZq0N0QSpgg
+       username: "Ansible on {{ inventory_hostname }}"
+       channel: code
+       msg: "configuration commited successfully using pb.replacevlans.yml"
+       validate_certs: false
+
 
  - name: check from devices operationnal state if desirated vlans are presents
    hosts: all
@@ -56,5 +78,3 @@
        channel: code
        msg: "audit completed successfully using pb.replacevlans.yml"
        validate_certs: false
-
-

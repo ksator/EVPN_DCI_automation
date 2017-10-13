@@ -22,5 +22,5 @@
       passwd: "{{ ADMPASS }}"
       diffs_file: "{{ playbook_dir }}/rollback/{{ inventory_hostname }}.diff"
       rollback: "{{ rbid }}" 
-      comment: "configuration rolled back by Ansible"
+      comment: "configuration rolled back by Ansible pb.rollback.yml with rbid {{ rbid }}"
 
