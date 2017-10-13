@@ -55,7 +55,7 @@ for dev_item in devices_list:
         print"python can not connect to the device %s" %(dev_item)
     except :
         print("")
-        print("another pyex error ...")
+        print("another pyez error ...")
     else:
         interface_list=[]
         result=dev.rpc.get_ethernet_switching_table_information(normalize=True, address=sys.argv[1])
