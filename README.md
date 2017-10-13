@@ -163,4 +163,8 @@ The details are available [here](https://travis-ci.org/ksator/EVPN_DCI_automatio
 
 ### Slack integration:  
 Github activities and Travis CI results are posted to a Slack channel:   
-![slack_integration.png](slack_integration.png)
+![resources/slack_integration.png](resources/slack_integration.png)  
+
+Ansible playbooks results are posted to a Slack channel:   
+![resources/ansible.png](resources/ansible.png)
+
