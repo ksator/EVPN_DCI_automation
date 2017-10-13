@@ -155,3 +155,7 @@ The files [**.travis.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/m
 For ansible playbooks that doesnt interact with Junos devices, they are run.  
 The command ansible-playbook has a built in option to check only the playbook's syntax (--syntax-check). This is how Travis is testing the playbooks that interact with Junos. Travis CI doesnt actually connect to the devices. If there is a syntax error, Travis will fail the build.  
 The same logic is applied to the python scripts.  
+
+### Slack integration:  
+Github and TravisCI Slack integration:   
+![slack_integration.png](slack_integration.png)
