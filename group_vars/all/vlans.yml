@@ -17,9 +17,3 @@ vlanlist:
   virtual_ip: 10.203.0.1
   virtual_mac: 00:25:03:00:00:01
   vni: 20203
-- id: 204
-  name: VLAN204
-  subnet: 10.204.0.0/16
-  virtual_ip: 10.204.0.1
-  virtual_mac: 00:25:04:00:00:01
-  vni: 20204
