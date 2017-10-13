@@ -18,6 +18,7 @@ This automation content is not to build the setup (build phase). The setup is al
 - Junos configuration diffs from rollbacks done with ansible are in the directory [**rollback**](https://github.com/ksator/EVPN_DCI_automation/tree/master/rollback) 
 - Python scripts are **xxx.py** files at the root of the repository  
 - a [**CSV**](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv) file at the root of the repository  
+- The CI configuration files [**.travis.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/.travis.yml) and [**requirements.txt**](https://github.com/ksator/EVPN_DCI_automation/blob/master/requirements.txt) at the root of this repository are used for this.  
 
 #### variables 
 - host specific variables are yml files under the directory [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars).   
