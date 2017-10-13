@@ -2,7 +2,7 @@
 this python script generates yml files for Ansible (variables) from a csv file.
 the csv file is created by a human, this script generates yml files consumed by ansible (Ansible variables)  
 usage: python ./generate_yml_vars.py
-Example: using this test.csv file as input
+Example: using this vars.csv file as input
 Vlan-id	  Subnet          virtual_mac 
 201	  10.201.0.0/16   00:25:01:00:00:01
 202	  10.202.0.0/16   00:25:02:00:00:01
@@ -34,7 +34,7 @@ import yaml
 from netaddr import IPNetwork
 from pprint import pprint as pp
 
-in_file  = open('test.csv', "r")
+in_file  = open('vars.csv', "r")
 reader = csv.reader(in_file)
 
 '''
