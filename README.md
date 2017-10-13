@@ -51,42 +51,42 @@ Playbooks are at the root of the repositories.
 - [**findmac.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/findmac.py) locates a mac address accross the network.  
 - [**generate_yml_vars.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py) generates yaml variables for Ansible from the [**CSV**](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv) file.  
 
-### Usage
+### Requirements
 
-#### requirements on ubuntu:  
+#### On ubuntu:  
 sudo pip install ansible==2.2.3  
 sudo ansible-galaxy install Juniper.junos    
 sudo pip install jxmlease  
 install junos-eznc (pyez) and its dependencies  
  
-#### Junos requirement: 
+#### On Junos: 
 Enable netconf and make sure you can reach that port on the juniper device  from your laptop  
 
-#### How to demo it 
+### How to demo it 
 
-##### get the repo content locally: 
+#### get the repo content locally: 
 ```
 git clone https://github.com/ksator/EVPN_DCI_automation.git  
 cd EVPN_DCI_automation
 sudo -s
 ```
-##### get junos facts
+#### get junos facts
 ```
 ansible-playbook pb.get.junos.facts.yml
 ls inventory
 ```
 
-##### verify bgp session states are Established 
+#### verify bgp session states are Established 
 ```
 ansible-playbook pb.check.bgp.yml 
 ```
 
-##### verify vlans are configured on devices
+#### verify vlans are configured on devices
 ```
 ansible-playbook pb.check.vlans.yml
 ```
 
-##### render the templates locally if you want to see the configuration files that are going to be generated: 
+#### render the templates locally if you want to see the configuration files that are going to be generated: 
 ```
 ansible-playbook pb.renderremovevlans.yml
 ls render/*_removevlans.set
@@ -96,40 +96,40 @@ ansible-playbook pb.renderreplacevlans.yml
 ls render/*_replacevlans.conf
 ```
 
-##### execute this playbook in dry-run mode to know what changes will happens:
+#### execute this playbook in dry-run mode to know what changes will happens:
 ```
 ansible-playbook pb.removevlans.yml --check --diff 
 ```
-##### remove vlans: 
+#### remove vlans: 
 ```
 ansible-playbook pb.check.vlans.yml
 ansible-playbook pb.removevlans.yml 
 ls backup
 ```
-##### add vlans: 
+#### add vlans: 
 ```
 ansible-playbook pb.addvlans.yml
 ls backup
 ansible-playbook pb.check.vlans.yml
 ```
-##### enforce desired state: 
+#### enforce desired state: 
 ```
 ansible-playbook pb.replacevlans.yml
 ls backup
 ```
-##### rollback the setup for the next demo: 
+#### rollback the setup for the next demo: 
 ```
 ansible-playbook pb.rollaback --extra-vars rbid=1 
 ls rollback
 ```
-##### login on junos devices and run some show commands: 
+#### login on junos devices and run some show commands: 
 ```
 show system commit
 show configuration | compare rollback 1
 show configuration vlans 
 ...
 ```
-##### generate yaml variables for ansible from a csv file
+#### generate yaml variables for ansible from a csv file
 Edit the [csv file](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)  
 Execute this python script 
 ```
@@ -140,16 +140,10 @@ check the [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/
 more group_vars/all/vlans.yml
 git diff group_vars/all/vlans.yml
 ```
-##### search for a mac address accross the network
+#### search for a mac address accross the network
 ```
 python ./findmac.py 38:4f:49:f2:5f:fc
 ```
-
-### Looking for more details about junos automation with Ansible?
-You can visit these repositories:   
-https://github.com/ksator/ansible-training-for-junos-automation  
-https://github.com/JNPRAutomate/ansible-junos-examples  
-https://github.com/dgjnpr/ansible-template-for-junos  
 
 ### Continuous integration with Travis CI
 
@@ -163,8 +157,6 @@ The same logic is applied to the python scripts.
 The last build status is: [![Build Status](https://travis-ci.org/ksator/EVPN_DCI_automation.svg?branch=master)](https://travis-ci.org/ksator/EVPN_DCI_automation)  
 The details are available [here](https://travis-ci.org/ksator/EVPN_DCI_automation)  
 
-
-
 ### Slack integration:  
 Github activities and Travis CI results are posted to a Slack channel:   
 ![resources/slack_integration.png](resources/slack_integration.png)  
@@ -172,3 +164,8 @@ Github activities and Travis CI results are posted to a Slack channel:
 Ansible playbooks results are posted to a Slack channel:   
 ![resources/ansible.png](resources/ansible.png)
 
+### Looking for more details about junos automation with Ansible?
+You can visit these repositories:   
+https://github.com/ksator/ansible-training-for-junos-automation  
+https://github.com/JNPRAutomate/ansible-junos-examples  
+https://github.com/dgjnpr/ansible-template-for-junos  
