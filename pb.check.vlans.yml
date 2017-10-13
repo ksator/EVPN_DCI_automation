@@ -20,5 +20,5 @@
       token: T2MBN64JX/B7HR6LQMS/b3PLhcxoDg1RwXZq0N0QSpgg
       username: "Ansible on {{ inventory_hostname }}"
       channel: code
-      msg: "audit completed using pb.Check.vlans.yml"
+      msg: "audit completed successfully using pb.Check.vlans.yml"
       validate_certs: false
