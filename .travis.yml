@@ -28,7 +28,7 @@ script:
   - ansible-playbook pb.get.junos.facts.yml --syntax-check
   - ansible-playbook pb.removevlans.yml --syntax-check
   - python -m py_compile findmac.py
-  - python -m py_compile generate_yml_vars.py  
+  - python ./generate_yml_vars.py  
 
 branches:
   only:

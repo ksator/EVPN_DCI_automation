@@ -5,7 +5,7 @@ Network automation content for an EVPN DCI demo:
 - on network devices running Junos (qfx5000 and qfx10000).  
 - using Ansible, Jinja, YAML, Python.
 
-This automation content is not to build the setup (build phase). The setup is already up and running. This automation content is used to update the existing setup (i.e run phase) adding/removing/replacing vlans to the DCI configuration.   
+This automation content is not to build the setup (build phase). The setup is already up and running. This automation content is used to update the existing setup (i.e run phase) adding/removing/replacing/auditing vlans to the DCI configuration.   
 
 ### Repo structure 
 - ansible playbooks are **pb.xxx.yml** files at the root of the repository.    
@@ -153,4 +153,4 @@ Travis CI is notified by github at each git push and pull request events. This t
 The files [**.travis.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/.travis.yml) and [**requirements.txt**](https://github.com/ksator/EVPN_DCI_automation/blob/master/requirements.txt) at the root of this repository are used for this.  
 For ansible playbooks that doesnt interact with Junos devices, they are run.  
 The command ansible-playbook has a built in option to check only the playbook's syntax (--syntax-check). This is how Travis is testing the playbooks that interact with Junos. Travis CI doesnt actually connect to the devices. If there is a syntax error, Travis will fail the build.  
-Travis is also checking the syntax of the python scripts.  
+The same logic is applied to the python scripts.  
