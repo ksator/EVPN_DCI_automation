@@ -16,3 +16,16 @@ QFX22     junos_host=10.161.34.11
 QFX23     junos_host=10.161.34.12
 QFX24     junos_host=10.161.34.13
 
+[DC1]
+Superfast
+Dori
+QFX6
+QFX21
+QFX22
+
+[DC2]
+Theia
+Nori
+QFX11
+QFX23
+QFX24
