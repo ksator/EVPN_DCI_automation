@@ -1,7 +1,6 @@
 '''
 this python script generates yml files for Ansible (variables) from a csv file i
 n the directories:
-group_vars/all/vlans.yml
 group_vars/DC1/vlans.yml
 group_vars/DC2/vlans.yml
 
@@ -21,21 +20,6 @@ Vlan-id,Subnet,virtual_mac,DC1,DC2
 
 python ./generate_yml_vars.py
 
-# more group_vars/all/vlans.yml
-vlanlist:
-- id: 202
-  name: VLAN202
-  subnet: 10.202.0.0/16
-  virtual_ip: 10.202.0.1
-  virtual_mac: 00:25:02:00:00:01
-  vni: 20202
-- id: 208
-  name: VLAN208
-  subnet: 10.208.0.0/16
-  virtual_ip: 10.208.0.1
-  virtual_mac: 00:25:08:00:00:01
-  vni: 20208
-
 # more group_vars/DC1/vlans.yml
 vlanlist:
 - id: 201
@@ -44,15 +28,33 @@ vlanlist:
   virtual_ip: 10.201.0.1
   virtual_mac: 00:25:01:00:00:01
   vni: 20201
+- id: 202
+  name: VLAN202
+  subnet: 10.202.0.0/16
+  virtual_ip: 10.202.0.1
+  virtual_mac: 00:25:02:00:00:01
+  vni: 20202
 - id: 207
   name: VLAN207
   subnet: 10.207.0.0/16
   virtual_ip: 10.207.0.1
   virtual_mac: 00:25:07:00:00:01
   vni: 20207
+- id: 208
+  name: VLAN208
+  subnet: 10.208.0.0/16
+  virtual_ip: 10.208.0.1
+  virtual_mac: 00:25:08:00:00:01
+  vni: 20208
 
 # more group_vars/DC2/vlans.yml
 vlanlist:
+- id: 202
+  name: VLAN202
+  subnet: 10.202.0.0/16
+  virtual_ip: 10.202.0.1
+  virtual_mac: 00:25:02:00:00:01
+  vni: 20202
 - id: 203
   name: VLAN203
   subnet: 10.203.0.0/16
@@ -71,6 +73,12 @@ vlanlist:
   virtual_ip: 10.206.0.1
   virtual_mac: 00:25:06:00:00:01
   vni: 20206
+- id: 208
+  name: VLAN208
+  subnet: 10.208.0.0/16
+  virtual_ip: 10.208.0.1
+  virtual_mac: 00:25:08:00:00:01
+  vni: 20208
 
 '''
 import csv
@@ -156,13 +164,26 @@ for i in reader:
     DC2_items.append(DC2_item)
 
 '''
->>> pp(stitched_items)
-[{'id': 202,
+
+>>> pp(DC1_items)
+[{'id': 201,
+  'name': 'VLAN201',
+  'subnet': '10.201.0.0/16',
+  'virtual_ip': '10.201.0.1',
+  'virtual_mac': '00:25:01:00:00:01',
+  'vni': 20201},
+ {'id': 202,
   'name': 'VLAN202',
   'subnet': '10.202.0.0/16',
   'virtual_ip': '10.202.0.1',
   'virtual_mac': '00:25:02:00:00:01',
   'vni': 20202},
+ {'id': 207,
+  'name': 'VLAN207',
+  'subnet': '10.207.0.0/16',
+  'virtual_ip': '10.207.0.1',
+  'virtual_mac': '00:25:07:00:00:01',
+  'vni': 20207},
  {'id': 208,
   'name': 'VLAN208',
   'subnet': '10.208.0.0/16',
@@ -171,23 +192,14 @@ for i in reader:
   'vni': 20208}]
 >>>
 >>>
->>> pp(DC1_items)
-[{'id': 201,
-  'name': 'VLAN201',
-  'subnet': '10.201.0.0/16',
-  'virtual_ip': '10.201.0.1',
-  'virtual_mac': '00:25:01:00:00:01',
-  'vni': 20201},
- {'id': 207,
-  'name': 'VLAN207',
-  'subnet': '10.207.0.0/16',
-  'virtual_ip': '10.207.0.1',
-  'virtual_mac': '00:25:07:00:00:01',
-  'vni': 20207}]
->>>
->>>
 >>> pp(DC2_items)
-[{'id': 203,
+[{'id': 202,
+  'name': 'VLAN202',
+  'subnet': '10.202.0.0/16',
+  'virtual_ip': '10.202.0.1',
+  'virtual_mac': '00:25:02:00:00:01',
+  'vni': 20202},
+ {'id': 203,
   'name': 'VLAN203',
   'subnet': '10.203.0.0/16',
   'virtual_ip': '10.203.0.1',
@@ -204,8 +216,15 @@ for i in reader:
   'subnet': '10.206.0.0/16',
   'virtual_ip': '10.206.0.1',
   'virtual_mac': '00:25:06:00:00:01',
-  'vni': 20206}]
+  'vni': 20206},
+ {'id': 208,
+  'name': 'VLAN208',
+  'subnet': '10.208.0.0/16',
+  'virtual_ip': '10.208.0.1',
+  'virtual_mac': '00:25:08:00:00:01',
+  'vni': 20208}]
 >>>
+
 '''
 
 out_file = open('group_vars/DC1/vlans.yml', "w")
@@ -219,3 +238,4 @@ out_file.write(yaml.dump(DC2_items, default_flow_style=False))
 out_file.close()
 
 in_file.close()
+
