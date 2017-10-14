@@ -50,6 +50,86 @@ Playbooks are at the root of the repositories.
 - [**findmac.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/findmac.py) locates a mac address accross the network.  
 - [**generate_yml_vars.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py) generates yaml variables for Ansible from the [**CSV**](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv) file.  
 
+#### Variables generation
+```
+more vars.csv
+Vlan-id,Subnet,virtual_mac,DC1,DC2
+201,10.201.0.0/16,00:25:01:00:00:01,True,False
+202,10.202.0.0/16,00:25:02:00:00:01,True,True
+203,10.203.0.0/16,00:25:03:00:00:01,False,True
+204,10.204.0.0/16,00:25:04:00:00:01,False,False
+205,10.205.0.0/16,00:25:05:00:00:01,False,True
+206,10.206.0.0/16,00:25:06:00:00:01,False,True
+207,10.207.0.0/16,00:25:07:00:00:01,True,False
+208,10.208.0.0/16,00:25:08:00:00:01,True,True
+```
+```
+python ./generate_yml_vars.py
+```
+```
+more group_vars/DC1/vlans.yml
+vlanlist:
+- id: 201
+  name: VLAN201
+  subnet: 10.201.0.0/16
+  virtual_ip: 10.201.0.1
+  virtual_mac: 00:25:01:00:00:01
+  vni: 20201
+- id: 202
+  name: VLAN202
+  subnet: 10.202.0.0/16
+  virtual_ip: 10.202.0.1
+  virtual_mac: 00:25:02:00:00:01
+  vni: 20202
+- id: 207
+  name: VLAN207
+  subnet: 10.207.0.0/16
+  virtual_ip: 10.207.0.1
+  virtual_mac: 00:25:07:00:00:01
+  vni: 20207
+- id: 208
+  name: VLAN208
+  subnet: 10.208.0.0/16
+  virtual_ip: 10.208.0.1
+  virtual_mac: 00:25:08:00:00:01
+  vni: 20208
+```
+```
+# more group_vars/DC2/vlans.yml
+vlanlist:
+- id: 202
+  name: VLAN202
+  subnet: 10.202.0.0/16
+  virtual_ip: 10.202.0.1
+  virtual_mac: 00:25:02:00:00:01
+  vni: 20202
+- id: 203
+  name: VLAN203
+  subnet: 10.203.0.0/16
+  virtual_ip: 10.203.0.1
+  virtual_mac: 00:25:03:00:00:01
+  vni: 20203
+- id: 205
+  name: VLAN205
+  subnet: 10.205.0.0/16
+  virtual_ip: 10.205.0.1
+  virtual_mac: 00:25:05:00:00:01
+  vni: 20205
+- id: 206
+  name: VLAN206
+  subnet: 10.206.0.0/16
+  virtual_ip: 10.206.0.1
+  virtual_mac: 00:25:06:00:00:01
+  vni: 20206
+- id: 208
+  name: VLAN208
+  subnet: 10.208.0.0/16
+  virtual_ip: 10.208.0.1
+  virtual_mac: 00:25:08:00:00:01
+  vni: 20208
+
+```
+
 ### Requirements
 
 #### Requirements on ubuntu:  
