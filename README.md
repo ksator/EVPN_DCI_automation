@@ -61,7 +61,7 @@ install junos-eznc (pyez) and its dependencies
 #### On Junos: 
 Enable netconf and make sure you can reach that port on the juniper device  from your laptop  
 
-### How to demo it 
+### How to use this repo 
 
 #### get the repo content locally: 
 ```
@@ -85,6 +85,25 @@ ansible-playbook pb.check.bgp.yml
 ansible-playbook pb.check.vlans.yml
 ```
 
+#### generate yaml variables for ansible from a csv file
+Edit the [csv file](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)  
+
+Execute this python script 
+```
+python ./generate_yml_vars.py
+```
+
+check the [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#variables)   
+```
+more group_vars/DC1/vlans.yml
+git diff group_vars/DC1/vlans.yml
+```
+```
+more group_vars/DC2/vlans.yml
+git diff group_vars/DC2/vlans.yml
+
+```
+
 #### render the templates locally if you want to see the configuration files that are going to be generated: 
 ```
 ansible-playbook pb.renderremovevlans.yml
@@ -97,7 +116,7 @@ ls render/*_replacevlans.conf
 
 #### execute this playbook in dry-run mode to know what changes will happens:
 ```
-ansible-playbook pb.removevlans.yml --check --diff 
+ansible-playbook pb.removevlans.yml --check --diff --limit Superfast 
 ```
 #### remove vlans: 
 ```
@@ -127,17 +146,6 @@ show system commit
 show configuration | compare rollback 1
 show configuration vlans 
 ...
-```
-#### generate yaml variables for ansible from a csv file
-Edit the [csv file](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)  
-Execute this python script 
-```
-python ./generate_yml_vars.py
-```
-check the [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#variables)   
-```
-more group_vars/all/vlans.yml
-git diff group_vars/all/vlans.yml
 ```
 #### search for a mac address accross the network
 ```
