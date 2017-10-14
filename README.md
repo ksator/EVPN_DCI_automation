@@ -192,9 +192,9 @@ ls render/*_removevlans.set
 ansible-playbook pb.renderaddvlans.yml
 ls render/*_addvlans.conf
 ```
+```
 ansible-playbook pb.renderreplacevlans.yml
 ls render/*_replacevlans.conf
-```
 ```
 
 #### execute this playbook in dry-run mode to know what changes will happens:
