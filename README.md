@@ -21,7 +21,7 @@ This automation content is used to update the existing setup (i.e run phase) add
 
 #### variables 
 - host specific variables are yml files under the directory [**host_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/host_vars).   
-- group related variables are yml files under the directory [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars/all) 
+- group related variables are yml files under the directory [**group_vars**](https://github.com/ksator/EVPN_DCI_automation/tree/master/group_vars) 
 - [**generate_yml_vars.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py) generates yaml variables for Ansible from the [**CSV**](https://github.com/ksator/EVPN_DCI_automation/blob/master/vars.csv) file.  
 
 
@@ -52,13 +52,13 @@ Playbooks are at the root of the repositories.
 
 ### Requirements
 
-#### On ubuntu:  
+#### Requirements on ubuntu:  
 sudo pip install ansible==2.2.3  
 sudo ansible-galaxy install Juniper.junos    
 sudo pip install jxmlease  
 install junos-eznc (pyez) and its dependencies  
  
-#### On Junos: 
+#### Requirements on Junos: 
 Enable netconf and make sure you can reach that port on the juniper device  from your laptop  
 
 ### How to use this repo 
@@ -69,7 +69,7 @@ git clone https://github.com/ksator/EVPN_DCI_automation.git
 cd EVPN_DCI_automation
 sudo -s
 ```
-#### get junos facts
+#### execute this playbook to get the junos facts from the network devices
 ```
 ansible-playbook pb.get.junos.facts.yml
 ls inventory
@@ -80,15 +80,10 @@ ls inventory
 ansible-playbook pb.check.bgp.yml 
 ```
 
-#### verify vlans are configured on devices
-```
-ansible-playbook pb.check.vlans.yml
-```
-
 #### generate yaml variables for ansible from a csv file
 Edit the [csv file](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)  
 
-Execute this python script 
+Execute [this python script](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py)
 ```
 python ./generate_yml_vars.py
 ```
@@ -101,30 +96,38 @@ git diff group_vars/DC1/vlans.yml
 ```
 more group_vars/DC2/vlans.yml
 git diff group_vars/DC2/vlans.yml
+```
 
+#### verify vlans are configured on devices
+```
+ansible-playbook pb.check.vlans.yml
 ```
 
 #### render the templates locally if you want to see the configuration files that are going to be generated: 
 ```
 ansible-playbook pb.renderremovevlans.yml
 ls render/*_removevlans.set
+```
+```
 ansible-playbook pb.renderaddvlans.yml
 ls render/*_addvlans.conf
+```
 ansible-playbook pb.renderreplacevlans.yml
 ls render/*_replacevlans.conf
+```
 ```
 
 #### execute this playbook in dry-run mode to know what changes will happens:
 ```
 ansible-playbook pb.removevlans.yml --check --diff --limit Superfast 
 ```
-#### remove vlans: 
+#### execute this playbook if you want to remove vlans: 
 ```
 ansible-playbook pb.check.vlans.yml
 ansible-playbook pb.removevlans.yml 
 ls backup
 ```
-#### add vlans: 
+#### execute this playbook if you want to add vlans: 
 ```
 ansible-playbook pb.addvlans.yml
 ls backup
