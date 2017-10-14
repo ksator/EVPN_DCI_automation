@@ -32,22 +32,6 @@
 +        }
 +        virtual-gateway-v4-mac 00:25:06:00:00:01;
 +    }
-+    unit 207 {
-+        family inet {
-+            address 10.207.0.3/16 {
-+                virtual-gateway-address 10.207.0.1;
-+            }
-+        }
-+        virtual-gateway-v4-mac 00:25:07:00:00:01;
-+    }
-+    unit 208 {
-+        family inet {
-+            address 10.208.0.3/16 {
-+                virtual-gateway-address 10.208.0.1;
-+            }
-+        }
-+        virtual-gateway-v4-mac 00:25:08:00:00:01;
-+    }
 +    unit 209 {
 +        family inet {
 +            address 10.209.0.3/16 {
@@ -389,22 +373,7 @@
 !    interface fxp0.0 { ... }
 [edit protocols pim]
      interface fxp0.0 { ... }
-+    interface irb.203 {
-+        distributed-dr;
-+    }
-+    interface irb.204 {
-+        distributed-dr;
-+    }
-+    interface irb.205 {
-+        distributed-dr;
-+    }
 +    interface irb.206 {
-+        distributed-dr;
-+    }
-+    interface irb.207 {
-+        distributed-dr;
-+    }
-+    interface irb.208 {
 +        distributed-dr;
 +    }
 +    interface irb.209 {
@@ -533,24 +502,18 @@
 +    interface irb.250 {
 +        distributed-dr;
 +    }
++    interface irb.204 {
++        distributed-dr;
++    }
++    interface irb.203 {
++        distributed-dr;
++    }
++    interface irb.205 {
++        distributed-dr;
++    }
      interface irb.201 { ... }
 [edit protocols igmp-snooping]
-+    vlan VLAN203 {
-+        proxy;
-+    }
-+    vlan VLAN204 {
-+        proxy;
-+    }
-+    vlan VLAN205 {
-+        proxy;
-+    }
 +    vlan VLAN206 {
-+        proxy;
-+    }
-+    vlan VLAN207 {
-+        proxy;
-+    }
-+    vlan VLAN208 {
 +        proxy;
 +    }
 +    vlan VLAN209 {
@@ -679,6 +642,15 @@
 +    vlan VLAN250 {
 +        proxy;
 +    }
++    vlan VLAN204 {
++        proxy;
++    }
++    vlan VLAN203 {
++        proxy;
++    }
++    vlan VLAN205 {
++        proxy;
++    }
      vlan VLAN201 { ... }
 [edit vlans]
 +   VLAN203 {
@@ -707,20 +679,6 @@
 +       l3-interface irb.206;
 +       vxlan {
 +           vni 20206;
-+       }
-+   }
-+   VLAN207 {
-+       vlan-id 207;
-+       l3-interface irb.207;
-+       vxlan {
-+           vni 20207;
-+       }
-+   }
-+   VLAN208 {
-+       vlan-id 208;
-+       l3-interface irb.208;
-+       vxlan {
-+           vni 20208;
 +       }
 +   }
 +   VLAN209 {

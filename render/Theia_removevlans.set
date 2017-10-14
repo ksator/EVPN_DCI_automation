@@ -1,8 +1,20 @@
-delete vlans VLAN201
-delete interfaces irb unit 201 
-delete protocols pim interface irb.201
-delete protocols igmp-snooping vlan VLAN201
 delete vlans VLAN202
 delete interfaces irb unit 202 
 delete protocols pim interface irb.202
 delete protocols igmp-snooping vlan VLAN202
+delete vlans VLAN203
+delete interfaces irb unit 203 
+delete protocols pim interface irb.203
+delete protocols igmp-snooping vlan VLAN203
+delete vlans VLAN205
+delete interfaces irb unit 205 
+delete protocols pim interface irb.205
+delete protocols igmp-snooping vlan VLAN205
+delete vlans VLAN206
+delete interfaces irb unit 206 
+delete protocols pim interface irb.206
+delete protocols igmp-snooping vlan VLAN206
+delete vlans VLAN208
+delete interfaces irb unit 208 
+delete protocols pim interface irb.208
+delete protocols igmp-snooping vlan VLAN208

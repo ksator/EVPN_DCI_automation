@@ -1,2 +1,4 @@
 delete vlans VLAN201
 delete vlans VLAN202
+delete vlans VLAN207
+delete vlans VLAN208

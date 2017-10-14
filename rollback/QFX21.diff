@@ -12,12 +12,6 @@
 +   VLAN206 {
 +       vlan-id 206;
 +   }
-+   VLAN207 {
-+       vlan-id 207;
-+   }
-+   VLAN208 {
-+       vlan-id 208;
-+   }
 +   VLAN209 {
 +       vlan-id 209;
 +   }

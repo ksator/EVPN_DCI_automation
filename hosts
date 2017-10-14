@@ -1,7 +1,3 @@
-[all:children]
-QFX10k
-QFX5k
-
 [QFX10k]
 Superfast junos_host=10.161.34.20
 Dori      junos_host=10.161.34.131

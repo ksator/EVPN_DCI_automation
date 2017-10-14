@@ -3,23 +3,14 @@
 +   V300 {
 +       vlan-id 300;
 +   }
-+   VLAN203 {
-+       vlan-id 203;
++   VLAN201 {
++       vlan-id 201;
 +   }
 +   VLAN204 {
 +       vlan-id 204;
 +   }
-+   VLAN205 {
-+       vlan-id 205;
-+   }
-+   VLAN206 {
-+       vlan-id 206;
-+   }
 +   VLAN207 {
 +       vlan-id 207;
-+   }
-+   VLAN208 {
-+       vlan-id 208;
 +   }
 +   VLAN209 {
 +       vlan-id 209;

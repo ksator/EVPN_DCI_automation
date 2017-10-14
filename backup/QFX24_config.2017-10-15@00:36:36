@@ -1,11 +1,11 @@
-## Last changed: 2017-09-29 04:37:35 PDT
+## Last changed: 2017-10-14 15:34:05 PDT
 ## Image name: jinstall-qfx-5-14.1X53-D45.3-domestic-signed.tgz
 
 version 14.1X53-D45.3;
 groups {
     global {
         system {
-            host-name QFX5100-48S3-21;
+            host-name QFX5100-48S3-24;
             domain-name jnpr.net;
             backup-router 10.161.39.254 destination 0.0.0.0/0;
             time-zone America/Los_Angeles;
@@ -52,7 +52,7 @@ groups {
             em0 {
                 unit 0 {
                     family inet {
-                        address 10.161.34.85/21;
+                        address 10.161.34.13/21;
                     }
                 }
             }
@@ -130,6 +130,7 @@ interfaces {
         }
     }
     ae0 {
+        disable;
         mtu 9216;
         aggregated-ether-options {
             lacp {
@@ -139,11 +140,12 @@ interfaces {
         }
         unit 0 {
             family inet {
-                address 10.10.10.1/30;
+                address 10.10.10.2/30;
             }
         }
     }
     ae1 {
+        disable;
         mtu 9216;
         aggregated-ether-options {
             lacp {
@@ -153,9 +155,9 @@ interfaces {
             }
             mc-ae {
                 mc-ae-id 1;
-                chassis-id 0;
+                chassis-id 1;
                 mode active-active;
-                status-control active;
+                status-control standby;
                 init-delay-time 240;
             }
         }
@@ -169,6 +171,7 @@ interfaces {
         }
     }
     ae2 {
+        disable;
         mtu 9216;
         aggregated-ether-options {
             lacp {
@@ -178,9 +181,9 @@ interfaces {
             }
             mc-ae {
                 mc-ae-id 2;
-                chassis-id 0;
+                chassis-id 1;
                 mode active-active;
-                status-control active;
+                status-control standby;
                 init-delay-time 240;
             }
         }
@@ -196,13 +199,13 @@ interfaces {
     lo0 {
         unit 0 {
             family inet {
-                address 100.1.1.21/32;
+                address 100.2.2.24/32;
             }
         }
     }
 }
 multi-chassis {
-    multi-chassis-protection 10.10.10.2 {
+    multi-chassis-protection 10.10.10.1 {
         interface ae0;
     }
 }
@@ -212,9 +215,6 @@ routing-options {
     }
 }
 protocols {
-    igmp {
-        interface all;
-    }
     ospf {
         area 0.0.0.0 {
             interface lo0.0;
@@ -222,11 +222,11 @@ protocols {
         }
     }
     iccp {
-        local-ip-addr 10.10.10.1;
-        peer 10.10.10.2 {
+        local-ip-addr 10.10.10.2;
+        peer 10.10.10.1 {
             session-establishment-hold-time 50;
             backup-liveness-detection {
-                backup-peer-ip 10.161.34.11;
+                backup-peer-ip 10.161.34.12;
             }
             liveness-detection {
                 minimum-receive-interval 1000;
@@ -242,9 +242,6 @@ protocols {
     igmp-snooping {
         vlan all;
     }
-    rstp {
-        interface ae2;
-    }
 }
 policy-options {
     policy-statement load-balance {
@@ -257,6 +254,9 @@ switch-options {
     service-id 10;
 }
 vlans {
+    V300 {
+        vlan-id 300;
+    }
     VLAN201 {
         vlan-id 201;
     }

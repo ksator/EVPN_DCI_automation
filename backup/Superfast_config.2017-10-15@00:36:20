@@ -1,5 +1,5 @@
-## Last changed: 2017-09-29 04:38:22 PDT
-version "17.3I20170905_1747_adarshr [adarshr]";
+## Last changed: 2017-10-14 15:35:11 PDT
+version 17.3R1.10;
 groups {
     global {
         system {
@@ -744,22 +744,7 @@ protocols {
         interface fxp0.0 {
             disable;
         }
-        interface irb.203 {
-            distributed-dr;
-        }
-        interface irb.204 {
-            distributed-dr;
-        }
-        interface irb.205 {
-            distributed-dr;
-        }
         interface irb.206 {
-            distributed-dr;
-        }
-        interface irb.207 {
-            distributed-dr;
-        }
-        interface irb.208 {
             distributed-dr;
         }
         interface irb.209 {
@@ -888,10 +873,25 @@ protocols {
         interface irb.250 {
             distributed-dr;
         }
+        interface irb.204 {
+            distributed-dr;
+        }
+        interface irb.203 {
+            distributed-dr;
+        }
+        interface irb.205 {
+            distributed-dr;
+        }
         interface irb.201 {
             distributed-dr;
         }
         interface irb.202 {
+            distributed-dr;
+        }
+        interface irb.207 {
+            distributed-dr;
+        }
+        interface irb.208 {
             distributed-dr;
         }
         join-load-balance;
@@ -913,22 +913,7 @@ protocols {
         }
     }
     igmp-snooping {
-        vlan VLAN203 {
-            proxy;
-        }
-        vlan VLAN204 {
-            proxy;
-        }
-        vlan VLAN205 {
-            proxy;
-        }
         vlan VLAN206 {
-            proxy;
-        }
-        vlan VLAN207 {
-            proxy;
-        }
-        vlan VLAN208 {
             proxy;
         }
         vlan VLAN209 {
@@ -1057,10 +1042,25 @@ protocols {
         vlan VLAN250 {
             proxy;
         }
+        vlan VLAN204 {
+            proxy;
+        }
+        vlan VLAN203 {
+            proxy;
+        }
+        vlan VLAN205 {
+            proxy;
+        }
         vlan VLAN201 {
             proxy;
         }
         vlan VLAN202 {
+            proxy;
+        }
+        vlan VLAN207 {
+            proxy;
+        }
+        vlan VLAN208 {
             proxy;
         }
     }

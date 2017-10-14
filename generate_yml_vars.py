@@ -1,12 +1,14 @@
 '''
-this python script generates yml files for Ansible (variables) from a csv file in the directories: 
+this python script generates yml files for Ansible (variables) from a csv file i
+n the directories:
 group_vars/all/vlans.yml
 group_vars/DC1/vlans.yml
 group_vars/DC2/vlans.yml
 
-the csv file is created by a human, this script generates yml files consumed by ansible (Ansible variables)  
+the csv file is created by a human, this script generates yml files consumed by
+ansible (Ansible variables)
 
-more vars.csv 
+more vars.csv
 Vlan-id,Subnet,virtual_mac,DC1,DC2
 201,10.201.0.0/16,00:25:01:00:00:01,True,False
 202,10.202.0.0/16,00:25:02:00:00:01,True,True
@@ -19,7 +21,7 @@ Vlan-id,Subnet,virtual_mac,DC1,DC2
 
 python ./generate_yml_vars.py
 
-# more group_vars/all/vlans.yml 
+# more group_vars/all/vlans.yml
 vlanlist:
 - id: 202
   name: VLAN202
@@ -34,7 +36,7 @@ vlanlist:
   virtual_mac: 00:25:08:00:00:01
   vni: 20208
 
-# more group_vars/DC1/vlans.yml 
+# more group_vars/DC1/vlans.yml
 vlanlist:
 - id: 201
   name: VLAN201
@@ -49,7 +51,7 @@ vlanlist:
   virtual_mac: 00:25:07:00:00:01
   vni: 20207
 
-# more group_vars/DC2/vlans.yml 
+# more group_vars/DC2/vlans.yml
 vlanlist:
 - id: 203
   name: VLAN203
@@ -92,12 +94,12 @@ reader = csv.reader(in_file)
 ['206', '10.206.0.0/16', '00:25:06:00:00:01', 'False', 'True']
 ['207', '10.207.0.0/16', '00:25:07:00:00:01', 'True', 'False']
 ['208', '10.208.0.0/16', '00:25:08:00:00:01', 'True', 'True']
->>> 
+>>>
 >>> for i in reader:
 ...   print i[1]
 ...
 .  print i[1]
-... 
+...
 Subnet
 10.201.0.0/16
 10.202.0.0/16
@@ -114,7 +116,7 @@ next(reader)
 '''
 >>> for i in reader:
 ...  print i
-... 
+...
 ['201', '10.201.0.0/16', '00:25:01:00:00:01', 'True', 'False']
 ['202', '10.202.0.0/16', '00:25:02:00:00:01', 'True', 'True']
 ['203', '10.203.0.0/16', '00:25:03:00:00:01', 'False', 'True']
@@ -126,40 +128,31 @@ next(reader)
 >>>
 '''
 
-stitched_items =[]
 DC1_items = []
 DC2_items = []
 
 for i in reader:
-  # DC1 and DC2
-  if (i[3]=="True" and i[4]=="True"):
-    id = int(i[0])
-    vni = 20000 + int(i[0])
-    subnet = i[1]
-    virtual_mac = i[2]
-    name = 'VLAN' + str(id)
-    virtual_ip= str(IPNetwork(subnet)[1])
-    stitched_item = {'name': name, 'id':id, 'vni': vni,'subnet': subnet, 'virtual_ip': virtual_ip, 'virtual_mac': virtual_mac}
-    stitched_items.append(stitched_item)
   # DC1
-  elif (i[3]=="True" and i[4]=="False"):
+  if i[3]=="True":
     id = int(i[0])
     vni = 20000 + int(i[0])
     subnet = i[1]
     virtual_mac = i[2]
     name = 'VLAN' + str(id)
     virtual_ip= str(IPNetwork(subnet)[1])
-    DC1_item = {'name': name, 'id':id, 'vni': vni,'subnet': subnet, 'virtual_ip': virtual_ip, 'virtual_mac': virtual_mac}
+    DC1_item = {'name': name, 'id':id, 'vni': vni,'subnet': subnet, 'virtual_ip'
+: virtual_ip, 'virtual_mac': virtual_mac}
     DC1_items.append(DC1_item)
   # DC2
-  elif (i[3]=="False" and i[4]=="True"):
+  if i[4]=="True":
     id = int(i[0])
     vni = 20000 + int(i[0])
     subnet = i[1]
     virtual_mac = i[2]
     name = 'VLAN' + str(id)
     virtual_ip= str(IPNetwork(subnet)[1])
-    DC2_item = {'name': name, 'id':id, 'vni': vni,'subnet': subnet, 'virtual_ip': virtual_ip, 'virtual_mac': virtual_mac}
+    DC2_item = {'name': name, 'id':id, 'vni': vni,'subnet': subnet, 'virtual_ip'
+: virtual_ip, 'virtual_mac': virtual_mac}
     DC2_items.append(DC2_item)
 
 '''
@@ -212,13 +205,8 @@ for i in reader:
   'virtual_ip': '10.206.0.1',
   'virtual_mac': '00:25:06:00:00:01',
   'vni': 20206}]
->>> 
+>>>
 '''
-
-out_file = open('group_vars/all/vlans.yml', "w")
-out_file.write("vlanlist:\n")
-out_file.write(yaml.dump(stitched_items, default_flow_style=False))
-out_file.close()
 
 out_file = open('group_vars/DC1/vlans.yml', "w")
 out_file.write("vlanlist:\n")

@@ -8,7 +8,7 @@
      junos_template:
       provider: "{{  credentials }}"
       src: "{{ playbook_dir }}/templates/10kremovevlans.j2"
-      comment: "configuration from Ansible"
+      comment: "configuration from Ansible using pb.remove.vlans"
       backup: true 
       config_format: set
 
@@ -31,7 +31,7 @@
      junos_template:
       provider: "{{  credentials }}"
       src: "{{ playbook_dir }}/templates/5kremovevlans.j2"
-      comment: "configuration from Ansible"
+      comment: "configuration from Ansible using pb.removevlans"
       backup: true
       config_format: set
   
