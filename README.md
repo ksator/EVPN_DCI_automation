@@ -6,11 +6,11 @@ Network automation content with Ansible, Jinja, YAML, Python. For a DCI demo usi
 The setup is already up and running. This automation content is not used to build the setup.  
 This automation content is used to update the existing setup adding/removing/replacing/auditing vlans to the DCI configuration.   
 
-### Topology
-There are 2 DC. 
-EVPN-VXLAN run on Dori, Superfast, Theia, Nori. L3 is done on these devices. 
-QFX21 and 22 use MC-LAG. QFX23 and 24 use MC-LAG
-QFX6 uses a LAG. QFX11 uses a LAG.
+### Topology: 
+There are 2 DC.  
+EVPN-VXLAN run on Dori, Superfast, Theia, Nori. L3 is done on these devices.  
+QFX21 and 22 use MC-LAG. QFX23 and 24 use MC-LAG.    
+QFX6 uses a LAG. QFX11 uses a LAG. 
 ![resources/topology.png](resources/topology.png)
 
 ### Repo structure 
