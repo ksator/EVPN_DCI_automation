@@ -259,3 +259,7 @@ You can visit these repositories:
 https://github.com/ksator/ansible-training-for-junos-automation  
 https://github.com/JNPRAutomate/ansible-junos-examples  
 https://github.com/dgjnpr/ansible-template-for-junos  
+
+### Looking for more junos automation content for EVPN-VXLAN
+You can visit this repository https://github.com/JNPRAutomate/ansible-junos-evpn-vxlan. It has junos automation content for EVPN-VXLAN for the build phase.
+
