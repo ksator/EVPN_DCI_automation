@@ -1,14 +1,16 @@
 [![Build Status](https://travis-ci.org/ksator/EVPN_DCI_automation.svg?branch=master)](https://travis-ci.org/ksator/EVPN_DCI_automation)
 
 ### What to find in this repo: 
-Network automation content with Ansible, Jinja, YAML, Python. For a DCI demo using EVPN-VXLAN. With network devices running Junos (QFX5000 and QFX10000) accross 2 differents DC.  
+Network automation content with Ansible, Jinja, YAML, Python. For a DCI demo using EVPN-VXLAN. With network devices running Junos accross 2 differents DC.  
 
 The setup is already up and running. This automation content is not used to build the setup.  
 This automation content is used to update the existing setup adding/removing/replacing/auditing vlans to the DCI configuration.   
 
 ### Topology: 
 There are 2 DC.  
-EVPN-VXLAN run on Dori, Superfast, Theia, Nori. L3 is done on these devices.  
+Dori, Superfast, Theia and Nori are QFX10000.  
+QFX21, QFX22, QFX23, QFX24, QFX6 and QFX11 are QFX5100.  
+EVPN-VXLAN run on the QFX10k devices. L3 is done on the QFX10k devices.    
 QFX21 and 22 use MC-LAG. QFX23 and 24 use MC-LAG.    
 QFX6 uses a LAG. QFX11 uses a LAG. 
 ![resources/topology.png](resources/topology.png)
