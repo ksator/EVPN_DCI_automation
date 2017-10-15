@@ -3,8 +3,8 @@
 ### What to find in this repo: 
 Network automation content with Ansible, Jinja, YAML, Python. For a DCI demo using EVPN-VXLAN. With network devices running Junos (QFX5000 and QFX10000) accross 2 differents DC.  
 
-The setup is already up and running. This automation content is not used to build the setup (i.e is not used for the build phase).  
-This automation content is used to update the existing setup (i.e run phase) adding/removing/replacing/auditing vlans to the DCI configuration.   
+The setup is already up and running. This automation content is not used to build the setup.  
+This automation content is used to update the existing setup adding/removing/replacing/auditing vlans to the DCI configuration.   
 
 ### Repo structure 
 - ansible playbooks are **pb.xxx.yml** files at the root of the repository.    
@@ -261,5 +261,5 @@ https://github.com/JNPRAutomate/ansible-junos-examples
 https://github.com/dgjnpr/ansible-template-for-junos  
 
 ### Looking for more junos automation content for EVPN-VXLAN
-You can visit this repository https://github.com/JNPRAutomate/ansible-junos-evpn-vxlan. It has junos automation content for EVPN-VXLAN for the build phase.
+You can visit this repository https://github.com/JNPRAutomate/ansible-junos-evpn-vxlan. It has junos automation content tp build an EVPN-VXLAN fabric.  
 
