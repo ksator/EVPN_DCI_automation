@@ -8,8 +8,8 @@ This automation content is used to update the existing setup adding/removing/rep
 
 ### Topology: 
 There are 2 DC.  
-Dori, Superfast, Theia and Nori are QFX10000.  
-QFX21, QFX22, QFX23, QFX24, QFX6 and QFX11 are QFX5100.  
+Dori, Superfast, Theia and Nori are QFX10000 devices.  
+QFX21, QFX22, QFX23, QFX24, QFX6 and QFX11 are QFX5100 devices.  
 EVPN-VXLAN run on the QFX10k devices. L3 is done on the QFX10k devices.    
 QFX21 and 22 use MC-LAG. QFX23 and 24 use MC-LAG.    
 QFX6 uses a LAG. QFX11 uses a LAG. 
