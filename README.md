@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/ksator/EVPN_DCI_automation.svg?branch=master)](https://travis-ci.org/ksator/EVPN_DCI_automation)
 
 ### What to find in this repo: 
-Network automation content (Ansible, Jinja, YAML, Python) for a DCI (EVPN) demo with network devices running Junos (QFX5000 and QFX10000) accross 2 differents DC.  
+Network automation content with Ansible, Jinja, YAML, Python. For a DCI demo using EVPN-VXLAN. With network devices running Junos (QFX5000 and QFX10000) accross 2 differents DC.  
 
 The setup is already up and running. This automation content is not used to build the setup (i.e is not used for the build phase).  
 This automation content is used to update the existing setup (i.e run phase) adding/removing/replacing/auditing vlans to the DCI configuration.   
