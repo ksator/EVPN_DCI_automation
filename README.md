@@ -157,9 +157,11 @@ commit
 ```
 ### How to use this repo 
 
-#### get the repo content locally: 
+#### get the remote repo content locally: 
 ```
-git clone https://github.com/ksator/EVPN_DCI_automation.git  
+git clone https://github.com/ksator/EVPN_DCI_automation.git 
+```
+```
 cd EVPN_DCI_automation
 ls
 sudo -s
