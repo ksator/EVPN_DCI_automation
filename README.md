@@ -79,12 +79,6 @@ The same logic is applied to the python scripts.
 The last build status is: [![Build Status](https://travis-ci.org/ksator/EVPN_DCI_automation.svg?branch=master)](https://travis-ci.org/ksator/EVPN_DCI_automation)  
 The details are available [here](https://travis-ci.org/ksator/EVPN_DCI_automation)  
 
-### Slack integration:  
-Github activities and Travis CI results are posted to a Slack channel:   
-![resources/slack_integration.png](resources/slack_integration.png)  
-
-Ansible playbooks results are posted to a Slack channel:   
-![resources/ansible.png](resources/ansible.png)
 
 
 ### Requirements
@@ -681,6 +675,13 @@ ansible-playbook pb.check.vlans.yml
 ```
 python ./findmac.py 38:4f:49:f2:5f:fc
 ```
+
+### Slack integration:  
+Github activities and Travis CI results are posted to a Slack channel:   
+![resources/slack_integration.png](resources/slack_integration.png)  
+
+Ansible playbooks results are posted to a Slack channel:   
+![resources/ansible.png](resources/ansible.png)
 
 ### Looking for more details about junos automation with Ansible?
 You can visit these repositories:   
