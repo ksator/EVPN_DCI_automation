@@ -80,22 +80,23 @@ The last build status is: [![Build Status](https://travis-ci.org/ksator/EVPN_DCI
 The details are available [here](https://travis-ci.org/ksator/EVPN_DCI_automation)  
 
 
+### How to use this repo 
 
-### Requirements
+#### Requirements 
 
-#### Requirements on ubuntu 16.04:
+##### Requirements on ubuntu 16.04:
 ```
 sudo apt-get install -y python-dev libxml2-dev python-pip libxslt1-dev build-essential libssl-dev libffi-dev
 sudo pip install jxmlease netaddr cryptography==1.2.1 junos-eznc pytest pytest-cov coveralls ansible==2.2.3
 sudo ansible-galaxy --force install Juniper.junos 
  ```
-#### Requirements on Junos: 
+ 
+##### Requirements on Junos: 
 Enable netconf and make sure you can reach that port on the juniper device  from your laptop  
 ```
 set system service netconf ssh
 commit
 ```
-### How to use this repo 
 
 #### get the remote repo content locally: 
 ```
