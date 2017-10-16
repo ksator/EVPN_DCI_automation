@@ -58,10 +58,6 @@ Playbooks are at the root of the repositories.
 - [**findmac.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/findmac.py) locates a mac address accross the network.  
 - [**generate_yml_vars.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py) generates yaml variables for Ansible from the [**CSV**](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv) file.  
 
-#### YAML variables generation
-
-[**generate_yml_vars.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py) generates yaml variables for Ansible from the [**CSV**](https://github.com/ksator/EVPN_DCI_automation/blob/master/vars.csv) file.  
-
 ### Requirements
 
 #### Requirements on ubuntu 16.04:
@@ -614,32 +610,16 @@ protocols {
     }
 }
 ```
+#### enforce the desired state against the network: 
 
-#### execute this playbook in dry-run mode to know what changes will happens:
+##### execute this playbook in dry-run mode to know what changes will happens on one specific device:
 ```
-ansible-playbook pb.removevlans.yml --check --diff --limit Superfast 
+ansible-playbook pb.replacevlans.yml --check --diff --limit Superfast 
 ```
-#### execute this playbook if you want to remove vlans: 
-```
-ansible-playbook pb.check.vlans.yml
-ansible-playbook pb.removevlans.yml 
-ls backup
-```
-#### execute this playbook if you want to add vlans: 
-```
-ansible-playbook pb.addvlans.yml
-ls backup
-ansible-playbook pb.check.vlans.yml
-```
-#### enforce desired state: 
+##### execute this playbook to enforce the desired state against the network: 
 ```
 ansible-playbook pb.replacevlans.yml
 ls backup
-```
-#### rollback the setup for the next demo: 
-```
-ansible-playbook pb.rollaback --extra-vars rbid=1 
-ls rollback
 ```
 #### login on junos devices and run some show commands: 
 ```
@@ -647,6 +627,26 @@ show system commit
 show configuration | compare rollback 1
 show configuration vlans 
 ...
+```
+#### rollback the setup for the next demo: 
+```
+ansible-playbook pb.rollaback --extra-vars rbid=1 
+ls rollback
+```
+#### additionnal playbooks 
+
+##### execute this playbook if you want to remove vlans: 
+
+```
+ansible-playbook pb.check.vlans.yml
+ansible-playbook pb.removevlans.yml 
+ls backup
+```
+##### execute this playbook if you want to add vlans: 
+```
+ansible-playbook pb.addvlans.yml
+ls backup
+ansible-playbook pb.check.vlans.yml
 ```
 #### search for a mac address accross the network
 ```
