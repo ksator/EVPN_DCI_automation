@@ -658,7 +658,7 @@ python ./findmac.py 38:4f:49:f2:5f:fc
 The Ansible playbooks and Python scripts in  this repository are tested automatically by [**Travis CI**](https://travis-ci.org/ksator/EVPN_DCI_automation).  
 Travis CI is notified by github at each git push and pull request events. This triggers new builds.  
 The files [**.travis.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/.travis.yml) and [**requirements.txt**](https://github.com/ksator/EVPN_DCI_automation/blob/master/requirements.txt) at the root of this repository are used for this.  
-For ansible playbooks that doesnt interact with Junos devices, they are run.  
+For ansible playbooks that doesnt interact with Junos devices, they are executed. If there is a syntax error, Travis will fail the build.      
 The command ansible-playbook has a built in option to check only the playbook's syntax (--syntax-check). This is how Travis is testing the playbooks that interact with Junos. Travis CI doesnt actually connect to the devices. If there is a syntax error, Travis will fail the build.  
 The same logic is applied to the python scripts.  
 
