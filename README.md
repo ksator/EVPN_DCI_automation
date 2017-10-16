@@ -161,17 +161,130 @@ commit
 ```
 git clone https://github.com/ksator/EVPN_DCI_automation.git  
 cd EVPN_DCI_automation
+ls
 sudo -s
 ```
 #### execute this playbook to get the junos facts from the network devices
 ```
-ansible-playbook pb.get.junos.facts.yml
-ls inventory
+# ansible-playbook pb.get.junos.facts.yml
+
+PLAY [create inventory directory] **********************************************
+
+TASK [create inventory directory] **********************************************
+ok: [localhost]
+
+PLAY [Get Facts] ***************************************************************
+
+TASK [remove host from inventory directory] ************************************
+ok: [QFX6]
+ok: [QFX11]
+ok: [QFX21]
+ok: [QFX22]
+ok: [QFX23]
+ok: [Superfast]
+ok: [QFX24]
+ok: [Dori]
+ok: [Theia]
+ok: [Nori]
+
+TASK [Retrieve information from devices running Junos] *************************
+ok: [QFX6]
+ok: [QFX11]
+ok: [QFX23]
+ok: [QFX22]
+ok: [QFX21]
+fatal: [Dori]: FAILED! => {"changed": false, "failed": true, "msg": "unable to connect to 10.161.34.131: ConnectRefusedError(10.161.34.131)"}
+ok: [QFX24]
+ok: [Theia]
+ok: [Superfast]
+ok: [Nori]
+
+TASK [Print some facts] ********************************************************
+ok: [QFX21] => {
+    "msg": "device QFX5100-48S3-21 is a QFX5100-48S-6Q running version 14.1X53-D45.3"
+}
+ok: [QFX11] => {
+    "msg": "device QFX5100-48S3-11 is a QFX5100-48S-6Q running version 14.1X53-D45.3"
+}
+ok: [QFX6] => {
+    "msg": "device QFX5100-48S-6 is a QFX5100-48S-6Q running version 14.1X53-D45.3"
+}
+ok: [QFX22] => {
+    "msg": "device QFX5100-48S3-22 is a QFX5100-48S-6Q running version 14.1X53-D45.3"
+}
+ok: [QFX23] => {
+    "msg": "device QFX5100-48S3-23 is a QFX5100-48S-6Q running version 14.1X53-D45.3"
+}
+ok: [QFX24] => {
+    "msg": "device QFX5100-48S3-24 is a QFX5100-48S-6Q running version 14.1X53-D45.3"
+}
+ok: [Theia] => {
+    "msg": "device Theia-QFX is a QFX10002-36Q running version 17.3R1-S1.5"
+}
+ok: [Superfast] => {
+    "msg": "device Superfast-QFX is a QFX10002-36Q running version 17.3R1.10"
+}
+ok: [Nori] => {
+    "msg": "device Nori-QFX is a QFX10002-36Q running version 17.3R1-S1.5"
+}
+
+NO MORE HOSTS LEFT *************************************************************
+	to retry, use: --limit @/root/EVPN_DCI_automation/pb.get.junos.facts.retry
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=1    changed=0    unreachable=0    failed=1   
+Nori                       : ok=3    changed=0    unreachable=0    failed=0   
+QFX11                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX21                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX22                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX23                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX24                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX6                       : ok=3    changed=0    unreachable=0    failed=0   
+Superfast                  : ok=3    changed=0    unreachable=0    failed=0   
+Theia                      : ok=3    changed=0    unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
+```
+```
+# ls inventory/
+Dori-QFX-facts.json         QFX5100-48S3-23-facts.json
+Nori-QFX-facts.json         QFX5100-48S3-24-facts.json
+QFX5100-48S3-11-facts.json  QFX5100-48S-6-facts.json
+QFX5100-48S3-21-facts.json  Superfast-QFX-facts.json
+QFX5100-48S3-22-facts.json  Theia-QFX-facts.json
+root@ksator-virtual-machine:/root/EVPN_DCI_automati
 ```
 
 #### verify bgp session states are Established 
 ```
-ansible-playbook pb.check.bgp.yml 
+# ansible-playbook pb.check.bgp.yml 
+
+PLAY [check bgp states] ********************************************************
+
+TASK [check if ebgp neighbors are established] *********************************
+ok: [Superfast] => (item={u'neighbor': u'10.1.1.11'})
+ok: [Theia] => (item={u'neighbor': u'10.2.2.11'})
+ok: [Nori] => (item={u'neighbor': u'10.2.2.9'})
+failed: [Dori] (item={u'neighbor': u'10.1.1.9'}) => {"failed": true, "item": {"neighbor": "10.1.1.9"}, "msg": "unable to connect to 10.161.34.131: ConnectTimeoutError(10.161.34.131)"}
+
+TASK [check if ibgp neighbors are established] *********************************
+ok: [Theia] => (item={u'neighbor': u'100.3.3.2'})
+ok: [Superfast] => (item={u'neighbor': u'100.3.3.2'})
+ok: [Nori] => (item={u'neighbor': u'100.3.3.2'})
+
+TASK [Send Slack notification] *************************************************
+ok: [Superfast -> localhost]
+ok: [Theia -> localhost]
+ok: [Nori -> localhost]
+
+NO MORE HOSTS LEFT *************************************************************
+	to retry, use: --limit @/root/EVPN_DCI_automation/pb.check.bgp.retry
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=0    changed=0    unreachable=0    failed=1   
+Nori                       : ok=3    changed=0    unreachable=0    failed=0   
+Superfast                  : ok=3    changed=0    unreachable=0    failed=0   
+Theia                      : ok=3    changed=0    unreachable=0    failed=0   
+
 ```
 
 #### generate yaml variables for ansible from a csv file
