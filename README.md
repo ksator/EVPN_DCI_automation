@@ -23,7 +23,7 @@ QFX6 uses a LAG. QFX11 uses a LAG.
 ![resources/topology.png](resources/topology.png)
 
 ### Repo structure 
-- ansible playbooks are **pb.xxx.yml** files at the root of the repository.    
+- ansible playbooks are at the root of the repository.    
   - **pb.renderxxx.yml** playbooks render templates. They dont connect to junos devices
   - [**pb.rollback.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.rollback.yml) playbook performs a rollback on junos devices. 
   - [**pb.addvlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderaddvlans.yml) playbook configures the devices with new vlans
@@ -58,7 +58,7 @@ QFX6 uses a LAG. QFX11 uses a LAG.
 
 - Junos configuration diffs from rollbacks done with ansible are in the directory [**rollback**](https://github.com/ksator/EVPN_DCI_automation/tree/master/rollback) 
 
-- Python scripts are **xxx.py** files at the root of the repository  
+- Python scripts are at the root of the repository  
   - [**findmac.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/findmac.py) locates a mac address accross the network.  
   - [**generate_yml_vars.py**](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py) generates yaml variables for Ansible from the [**CSV**](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv) file.  
 
@@ -320,140 +320,9 @@ vlanlist:
   vni: 20208
 
 ```
-#### verify vlans are configured on devices
-```
-ansible-playbook pb.check.vlans.yml
-```
-
 #### render the templates locally if you want to see the configuration files that are going to be generated: 
 
-##### pb.renderremovevlans.yml 
-```
-# ansible-playbook pb.renderremovevlans.yml 
-
-PLAY [create render directory] *************************************************
-
-TASK [create render directory] *************************************************
-ok: [localhost]
-
-PLAY [render template for QFX10k] **********************************************
-
-TASK [remove files from render directory] **************************************
-changed: [Superfast]
-changed: [Nori]
-changed: [Dori]
-changed: [Theia]
-
-TASK [Render template for QFX10k] **********************************************
-changed: [Superfast]
-changed: [Dori]
-changed: [Nori]
-changed: [Theia]
-
-PLAY [render template for QFX5k] ***********************************************
-
-TASK [remove files from render directory] **************************************
-changed: [QFX21]
-changed: [QFX11]
-changed: [QFX6]
-changed: [QFX23]
-changed: [QFX22]
-changed: [QFX24]
-
-TASK [Render template for QFX5k] ***********************************************
-changed: [QFX6]
-changed: [QFX22]
-changed: [QFX11]
-changed: [QFX23]
-changed: [QFX21]
-changed: [QFX24]
-
-PLAY RECAP *********************************************************************
-Dori                       : ok=2    changed=2    unreachable=0    failed=0   
-Nori                       : ok=2    changed=2    unreachable=0    failed=0   
-QFX11                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX21                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX22                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX23                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX24                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX6                       : ok=2    changed=2    unreachable=0    failed=0   
-Superfast                  : ok=2    changed=2    unreachable=0    failed=0   
-Theia                      : ok=2    changed=2    unreachable=0    failed=0   
-localhost                  : ok=1    changed=0    unreachable=0    failed=0   
-```
-```
-# ls render/*_removevlans.set
-render/Dori_removevlans.set   render/QFX23_removevlans.set
-render/Nori_removevlans.set   render/QFX24_removevlans.set
-render/QFX11_removevlans.set  render/QFX6_removevlans.set
-render/QFX21_removevlans.set  render/Superfast_removevlans.set
-render/QFX22_removevlans.set  render/Theia_removevlans.set
-```
-
-##### pb.renderaddvlans.yml
-```
-# ansible-playbook pb.renderaddvlans.yml 
-
-PLAY [create render directory] *************************************************
-
-TASK [create render directory] *************************************************
-ok: [localhost]
-
-PLAY [render template for QFX10k] **********************************************
-
-TASK [remove files from render directory] **************************************
-changed: [Dori]
-changed: [Superfast]
-changed: [Nori]
-changed: [Theia]
-
-TASK [Render template for QFX10k] **********************************************
-changed: [Dori]
-changed: [Theia]
-changed: [Superfast]
-changed: [Nori]
-
-PLAY [render template for QFX5k] ***********************************************
-
-TASK [remove files from render directory] **************************************
-changed: [QFX11]
-changed: [QFX6]
-changed: [QFX23]
-changed: [QFX21]
-changed: [QFX22]
-changed: [QFX24]
-
-TASK [Render template for QFX5k] ***********************************************
-changed: [QFX21]
-changed: [QFX6]
-changed: [QFX11]
-changed: [QFX22]
-changed: [QFX23]
-changed: [QFX24]
-
-PLAY RECAP *********************************************************************
-Dori                       : ok=2    changed=2    unreachable=0    failed=0   
-Nori                       : ok=2    changed=2    unreachable=0    failed=0   
-QFX11                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX21                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX22                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX23                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX24                      : ok=2    changed=2    unreachable=0    failed=0   
-QFX6                       : ok=2    changed=2    unreachable=0    failed=0   
-Superfast                  : ok=2    changed=2    unreachable=0    failed=0   
-Theia                      : ok=2    changed=2    unreachable=0    failed=0   
-localhost                  : ok=1    changed=0    unreachable=0    failed=0   
-```
-```
-# ls render/*_addvlans.conf  
-render/Dori_addvlans.conf   render/QFX23_addvlans.conf
-render/Nori_addvlans.conf   render/QFX24_addvlans.conf
-render/QFX11_addvlans.conf  render/QFX6_addvlans.conf
-render/QFX21_addvlans.conf  render/Superfast_addvlans.conf
-render/QFX22_addvlans.conf  render/Theia_addvlans.conf
-
-```
-##### pb.renderreplacevlans.yml
+##### Generate the configuration that has the desired state (best approach, declarative approach)
 ```
 # ansible-playbook pb.renderreplacevlans.yml 
 
@@ -633,7 +502,134 @@ protocols {
     }
 }
 ```
-#### enforce the desired state against the network: 
+
+##### Generate the configuration to delete vlans (not the ideal approach)  
+```
+# ansible-playbook pb.renderremovevlans.yml 
+
+PLAY [create render directory] *************************************************
+
+TASK [create render directory] *************************************************
+ok: [localhost]
+
+PLAY [render template for QFX10k] **********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [Superfast]
+changed: [Nori]
+changed: [Dori]
+changed: [Theia]
+
+TASK [Render template for QFX10k] **********************************************
+changed: [Superfast]
+changed: [Dori]
+changed: [Nori]
+changed: [Theia]
+
+PLAY [render template for QFX5k] ***********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [QFX21]
+changed: [QFX11]
+changed: [QFX6]
+changed: [QFX23]
+changed: [QFX22]
+changed: [QFX24]
+
+TASK [Render template for QFX5k] ***********************************************
+changed: [QFX6]
+changed: [QFX22]
+changed: [QFX11]
+changed: [QFX23]
+changed: [QFX21]
+changed: [QFX24]
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=2    changed=2    unreachable=0    failed=0   
+Nori                       : ok=2    changed=2    unreachable=0    failed=0   
+QFX11                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX21                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX22                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX23                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX24                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX6                       : ok=2    changed=2    unreachable=0    failed=0   
+Superfast                  : ok=2    changed=2    unreachable=0    failed=0   
+Theia                      : ok=2    changed=2    unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
+```
+```
+# ls render/*_removevlans.set
+render/Dori_removevlans.set   render/QFX23_removevlans.set
+render/Nori_removevlans.set   render/QFX24_removevlans.set
+render/QFX11_removevlans.set  render/QFX6_removevlans.set
+render/QFX21_removevlans.set  render/Superfast_removevlans.set
+render/QFX22_removevlans.set  render/Theia_removevlans.set
+```
+
+##### Generate the configuration to add vlans (not the ideal approach) 
+```
+# ansible-playbook pb.renderaddvlans.yml 
+
+PLAY [create render directory] *************************************************
+
+TASK [create render directory] *************************************************
+ok: [localhost]
+
+PLAY [render template for QFX10k] **********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [Dori]
+changed: [Superfast]
+changed: [Nori]
+changed: [Theia]
+
+TASK [Render template for QFX10k] **********************************************
+changed: [Dori]
+changed: [Theia]
+changed: [Superfast]
+changed: [Nori]
+
+PLAY [render template for QFX5k] ***********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [QFX11]
+changed: [QFX6]
+changed: [QFX23]
+changed: [QFX21]
+changed: [QFX22]
+changed: [QFX24]
+
+TASK [Render template for QFX5k] ***********************************************
+changed: [QFX21]
+changed: [QFX6]
+changed: [QFX11]
+changed: [QFX22]
+changed: [QFX23]
+changed: [QFX24]
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=2    changed=2    unreachable=0    failed=0   
+Nori                       : ok=2    changed=2    unreachable=0    failed=0   
+QFX11                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX21                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX22                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX23                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX24                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX6                       : ok=2    changed=2    unreachable=0    failed=0   
+Superfast                  : ok=2    changed=2    unreachable=0    failed=0   
+Theia                      : ok=2    changed=2    unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
+```
+```
+# ls render/*_addvlans.conf  
+render/Dori_addvlans.conf   render/QFX23_addvlans.conf
+render/Nori_addvlans.conf   render/QFX24_addvlans.conf
+render/QFX11_addvlans.conf  render/QFX6_addvlans.conf
+render/QFX21_addvlans.conf  render/Superfast_addvlans.conf
+render/QFX22_addvlans.conf  render/Theia_addvlans.conf
+
+```
+#### enforce the desired state against the network (best approach, declarative approach): 
 
 ##### execute this playbook in dry-run mode to know what changes will happens on one specific device:
 ```
@@ -644,19 +640,28 @@ ansible-playbook pb.replacevlans.yml --check --diff --limit Superfast
 ansible-playbook pb.replacevlans.yml
 ls backup
 ```
+
+##### verify if the desited vlans are configured properly on devices
+```
+ansible-playbook pb.check.vlans.yml
+```
+
 #### login on junos devices and run some show commands: 
 ```
 show system commit
-show configuration | compare rollback 1
-show configuration vlans 
-...
 ```
-#### rollback the setup for the next demo: 
+```
+show configuration | compare rollback 1
+```
+```
+show configuration vlans 
+```
+#### rollback the setup to the previous state: 
 ```
 ansible-playbook pb.rollaback --extra-vars rbid=1 
 ls rollback
 ```
-#### additionnal playbooks 
+#### additionnal playbooks (not ideal as more imperative approach)
 
 ##### execute this playbook if you want to remove vlans: 
 
