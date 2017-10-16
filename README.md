@@ -25,6 +25,9 @@ QFX6 uses a LAG. QFX11 uses a LAG.
 ### Repo structure 
 - ansible playbooks are at the root of the repository.    
   - **pb.renderxxx.yml** playbooks render templates. They dont connect to junos devices
+    - [pb.renderaddvlans.yml](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderaddvlans.yml) 
+    - [pb.renderremovevlans.yml](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderremovevlans.yml)
+    - [pb.renderreplacevlans.yml](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderreplacevlans.yml)
   - [**pb.rollback.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.rollback.yml) playbook performs a rollback on junos devices. 
   - [**pb.addvlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.renderaddvlans.yml) playbook configures the devices with new vlans
   - [**pb.removevlans.yml**](https://github.com/ksator/EVPN_DCI_automation/blob/master/pb.removevlans.yml) playbook removes existing vlans from devices
