@@ -6,7 +6,7 @@ For a DCI demo using EVPN-VXLAN.
 With network devices running Junos accross 2 differents DC.  
 
 The setup is already up and running. So this automation content is not used to build the setup.  
-This automation content is used to update the existing setup adding/removing/replacing/auditing vlans to the DCI configuration.   
+This automation content is used to update the existing setup adding/removing/replacing/auditing vlans to the DCI configuration. It uses a declarative approach and enforces the desired state against the network.    
 
 This repo covers also how to generate YAML variables (ready to be consumed by Jinja and Ansible) from a CSV file (source-controlled) using Python.  
 
@@ -261,7 +261,7 @@ Vlan-id,Subnet,virtual_mac,DC1,DC2
 ```
 python ./generate_yml_vars.py
 ```
-##### check the [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#variables)   
+##### check the new [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#variables)   
 ```
 git diff group_vars/DC1/vlans.yml
 ```
