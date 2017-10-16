@@ -253,7 +253,6 @@ Nori-QFX-facts.json         QFX5100-48S3-24-facts.json
 QFX5100-48S3-11-facts.json  QFX5100-48S-6-facts.json
 QFX5100-48S3-21-facts.json  Superfast-QFX-facts.json
 QFX5100-48S3-22-facts.json  Theia-QFX-facts.json
-root@ksator-virtual-machine:/root/EVPN_DCI_automati
 ```
 
 #### verify bgp session states are Established 
@@ -290,40 +289,409 @@ Theia                      : ok=3    changed=0    unreachable=0    failed=0
 ```
 
 #### generate yaml variables for ansible from a csv file
-Edit the [csv file](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)  
 
-Execute [this python script](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py)
+##### Edit the [csv file](https://github.com/ksator/EVPN_DCI_automation/blob/master/test.csv)  
+```
+nano vars.csv 
+```
+```
+more vars.csv
+Vlan-id,Subnet,virtual_mac,DC1,DC2
+201,10.201.0.0/16,00:25:01:00:00:01,True,False
+202,10.202.0.0/16,00:25:02:00:00:01,True,True
+203,10.203.0.0/16,00:25:03:00:00:01,False,True
+204,10.204.0.0/16,00:25:04:00:00:01,False,False
+205,10.205.0.0/16,00:25:05:00:00:01,False,True
+206,10.206.0.0/16,00:25:06:00:00:01,False,True
+207,10.207.0.0/16,00:25:07:00:00:01,True,False
+208,10.208.0.0/16,00:25:08:00:00:01,True,True
+```
+##### Execute [this python script](https://github.com/ksator/EVPN_DCI_automation/blob/master/generate_yml_vars.py)
 ```
 python ./generate_yml_vars.py
 ```
-
-check the [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#variables)   
+##### check the [variables](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#variables)   
 ```
-more group_vars/DC1/vlans.yml
 git diff group_vars/DC1/vlans.yml
 ```
 ```
-more group_vars/DC2/vlans.yml
 git diff group_vars/DC2/vlans.yml
 ```
+```
+more group_vars/DC1/vlans.yml
+vlanlist:
+- id: 201
+  name: VLAN201
+  subnet: 10.201.0.0/16
+  virtual_ip: 10.201.0.1
+  virtual_mac: 00:25:01:00:00:01
+  vni: 20201
+- id: 202
+  name: VLAN202
+  subnet: 10.202.0.0/16
+  virtual_ip: 10.202.0.1
+  virtual_mac: 00:25:02:00:00:01
+  vni: 20202
+- id: 207
+  name: VLAN207
+  subnet: 10.207.0.0/16
+  virtual_ip: 10.207.0.1
+  virtual_mac: 00:25:07:00:00:01
+  vni: 20207
+- id: 208
+  name: VLAN208
+  subnet: 10.208.0.0/16
+  virtual_ip: 10.208.0.1
+  virtual_mac: 00:25:08:00:00:01
+  vni: 20208
+```
+```
+# more group_vars/DC2/vlans.yml
+vlanlist:
+- id: 202
+  name: VLAN202
+  subnet: 10.202.0.0/16
+  virtual_ip: 10.202.0.1
+  virtual_mac: 00:25:02:00:00:01
+  vni: 20202
+- id: 203
+  name: VLAN203
+  subnet: 10.203.0.0/16
+  virtual_ip: 10.203.0.1
+  virtual_mac: 00:25:03:00:00:01
+  vni: 20203
+- id: 205
+  name: VLAN205
+  subnet: 10.205.0.0/16
+  virtual_ip: 10.205.0.1
+  virtual_mac: 00:25:05:00:00:01
+  vni: 20205
+- id: 206
+  name: VLAN206
+  subnet: 10.206.0.0/16
+  virtual_ip: 10.206.0.1
+  virtual_mac: 00:25:06:00:00:01
+  vni: 20206
+- id: 208
+  name: VLAN208
+  subnet: 10.208.0.0/16
+  virtual_ip: 10.208.0.1
+  virtual_mac: 00:25:08:00:00:01
+  vni: 20208
 
+```
 #### verify vlans are configured on devices
 ```
 ansible-playbook pb.check.vlans.yml
 ```
 
 #### render the templates locally if you want to see the configuration files that are going to be generated: 
+
+##### pb.renderremovevlans.yml 
 ```
-ansible-playbook pb.renderremovevlans.yml
-ls render/*_removevlans.set
+# ansible-playbook pb.renderremovevlans.yml 
+
+PLAY [create render directory] *************************************************
+
+TASK [create render directory] *************************************************
+ok: [localhost]
+
+PLAY [render template for QFX10k] **********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [Superfast]
+changed: [Nori]
+changed: [Dori]
+changed: [Theia]
+
+TASK [Render template for QFX10k] **********************************************
+changed: [Superfast]
+changed: [Dori]
+changed: [Nori]
+changed: [Theia]
+
+PLAY [render template for QFX5k] ***********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [QFX21]
+changed: [QFX11]
+changed: [QFX6]
+changed: [QFX23]
+changed: [QFX22]
+changed: [QFX24]
+
+TASK [Render template for QFX5k] ***********************************************
+changed: [QFX6]
+changed: [QFX22]
+changed: [QFX11]
+changed: [QFX23]
+changed: [QFX21]
+changed: [QFX24]
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=2    changed=2    unreachable=0    failed=0   
+Nori                       : ok=2    changed=2    unreachable=0    failed=0   
+QFX11                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX21                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX22                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX23                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX24                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX6                       : ok=2    changed=2    unreachable=0    failed=0   
+Superfast                  : ok=2    changed=2    unreachable=0    failed=0   
+Theia                      : ok=2    changed=2    unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
 ```
 ```
-ansible-playbook pb.renderaddvlans.yml
-ls render/*_addvlans.conf
+# ls render/*_removevlans.set
+render/Dori_removevlans.set   render/QFX23_removevlans.set
+render/Nori_removevlans.set   render/QFX24_removevlans.set
+render/QFX11_removevlans.set  render/QFX6_removevlans.set
+render/QFX21_removevlans.set  render/Superfast_removevlans.set
+render/QFX22_removevlans.set  render/Theia_removevlans.set
+```
+
+##### pb.renderaddvlans.yml
+```
+# ansible-playbook pb.renderaddvlans.yml 
+
+PLAY [create render directory] *************************************************
+
+TASK [create render directory] *************************************************
+ok: [localhost]
+
+PLAY [render template for QFX10k] **********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [Dori]
+changed: [Superfast]
+changed: [Nori]
+changed: [Theia]
+
+TASK [Render template for QFX10k] **********************************************
+changed: [Dori]
+changed: [Theia]
+changed: [Superfast]
+changed: [Nori]
+
+PLAY [render template for QFX5k] ***********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [QFX11]
+changed: [QFX6]
+changed: [QFX23]
+changed: [QFX21]
+changed: [QFX22]
+changed: [QFX24]
+
+TASK [Render template for QFX5k] ***********************************************
+changed: [QFX21]
+changed: [QFX6]
+changed: [QFX11]
+changed: [QFX22]
+changed: [QFX23]
+changed: [QFX24]
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=2    changed=2    unreachable=0    failed=0   
+Nori                       : ok=2    changed=2    unreachable=0    failed=0   
+QFX11                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX21                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX22                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX23                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX24                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX6                       : ok=2    changed=2    unreachable=0    failed=0   
+Superfast                  : ok=2    changed=2    unreachable=0    failed=0   
+Theia                      : ok=2    changed=2    unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
 ```
 ```
-ansible-playbook pb.renderreplacevlans.yml
-ls render/*_replacevlans.conf
+# ls render/*_addvlans.conf  
+render/Dori_addvlans.conf   render/QFX23_addvlans.conf
+render/Nori_addvlans.conf   render/QFX24_addvlans.conf
+render/QFX11_addvlans.conf  render/QFX6_addvlans.conf
+render/QFX21_addvlans.conf  render/Superfast_addvlans.conf
+render/QFX22_addvlans.conf  render/Theia_addvlans.conf
+
+```
+##### pb.renderreplacevlans.yml
+```
+# ansible-playbook pb.renderreplacevlans.yml 
+
+PLAY [create render directory] *************************************************
+
+TASK [create render directory] *************************************************
+ok: [localhost]
+
+PLAY [render template for QFX10k] **********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [Superfast]
+changed: [Dori]
+changed: [Nori]
+changed: [Theia]
+
+TASK [Render template for QFX10k] **********************************************
+changed: [Theia]
+changed: [Superfast]
+changed: [Nori]
+changed: [Dori]
+
+PLAY [render template for QFX5k] ***********************************************
+
+TASK [remove files from render directory] **************************************
+changed: [QFX6]
+changed: [QFX21]
+changed: [QFX11]
+changed: [QFX23]
+changed: [QFX22]
+changed: [QFX24]
+
+TASK [Render template for QFX5k] ***********************************************
+changed: [QFX23]
+changed: [QFX11]
+changed: [QFX21]
+changed: [QFX22]
+changed: [QFX6]
+changed: [QFX24]
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=2    changed=2    unreachable=0    failed=0   
+Nori                       : ok=2    changed=2    unreachable=0    failed=0   
+QFX11                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX21                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX22                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX23                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX24                      : ok=2    changed=2    unreachable=0    failed=0   
+QFX6                       : ok=2    changed=2    unreachable=0    failed=0   
+Superfast                  : ok=2    changed=2    unreachable=0    failed=0   
+Theia                      : ok=2    changed=2    unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
+```
+```
+# ls render/*_replacevlans.conf
+render/Dori_replacevlans.conf   render/QFX23_replacevlans.conf
+render/Nori_replacevlans.conf   render/QFX24_replacevlans.conf
+render/QFX11_replacevlans.conf  render/QFX6_replacevlans.conf
+render/QFX21_replacevlans.conf  render/Superfast_replacevlans.conf
+render/QFX22_replacevlans.conf  render/Theia_replacevlans.conf
+```
+```
+# more render/Superfast_replacevlans.conf 
+replace:
+vlans {
+    VLAN201 {
+        vlan-id 201;
+        l3-interface irb.201;
+        vxlan {
+            vni 20201;
+        }
+    }
+    VLAN202 {
+        vlan-id 202;
+        l3-interface irb.202;
+        vxlan {
+            vni 20202;
+        }
+    }
+    VLAN207 {
+        vlan-id 207;
+        l3-interface irb.207;
+        vxlan {
+            vni 20207;
+        }
+    }
+    VLAN208 {
+        vlan-id 208;
+        l3-interface irb.208;
+        vxlan {
+            vni 20208;
+        }
+    }
+    VLAN2000 {
+        vlan-id 2000;
+    }
+}
+interfaces {
+    replace:
+    irb {
+        unit 201 {
+            family inet {
+                address 10.201.0.3/16 {
+                    virtual-gateway-address 10.201.0.1;
+                }
+            }
+            virtual-gateway-v4-mac 00:25:01:00:00:01;
+        }
+        unit 202 {
+            family inet {
+                address 10.202.0.3/16 {
+                    virtual-gateway-address 10.202.0.1;
+                }
+            }
+            virtual-gateway-v4-mac 00:25:02:00:00:01;
+        }
+        unit 207 {
+            family inet {
+                address 10.207.0.3/16 {
+                    virtual-gateway-address 10.207.0.1;
+                }
+            }
+            virtual-gateway-v4-mac 00:25:07:00:00:01;
+        }
+        unit 208 {
+            family inet {
+                address 10.208.0.3/16 {
+                    virtual-gateway-address 10.208.0.1;
+                }
+            }
+            virtual-gateway-v4-mac 00:25:08:00:00:01;
+        }
+    }
+}
+protocols {
+    replace:
+    pim {
+        interface irb.201 {
+            distributed-dr;
+           }
+        interface irb.202 {
+            distributed-dr;
+           }
+        interface irb.207 {
+            distributed-dr;
+           }
+        interface irb.208 {
+            distributed-dr;
+           }
+        rp {
+            static {
+                address 100.1.1.254;
+           }
+        }
+        interface all {
+            mode sparse;
+           }
+        interface fxp0.0 {
+           disable;
+           }
+        join-load-balance;
+    }
+    replace:
+    igmp-snooping {
+        vlan VLAN201 {
+            proxy;
+        }
+        vlan VLAN202 {
+            proxy;
+        }
+        vlan VLAN207 {
+            proxy;
+        }
+        vlan VLAN208 {
+            proxy;
+        }
+    }
+}
 ```
 
 #### execute this playbook in dry-run mode to know what changes will happens:
