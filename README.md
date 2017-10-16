@@ -5,8 +5,11 @@ Network automation content with Ansible, Jinja, YAML, Python and Travis CI.
 For a DCI demo using EVPN-VXLAN.  
 With network devices running Junos accross 2 differents DC.  
 
-The setup is already up and running. This automation content is not used to build the setup.  
+The setup is already up and running. So this automation content is not used to build the setup.  
 This automation content is used to update the existing setup adding/removing/replacing/auditing vlans to the DCI configuration.   
+
+Additionally, this repo covers how to generate YAML variables (ready to be consumed by Jinja and Ansible) from a CSV file (source-controlled) using Python.  
+It has also a Python script to locate a mac address (i.e that connects to all the devices to provide the interfaces associated with a learned MAC addresses). This script uses the Ansible inventory file to get the list of devices ip address.    
 
 ### Topology: 
 
@@ -15,8 +18,11 @@ There are 2 DC (DC1 and DC2).
 Dori, Superfast, Theia and Nori are QFX10000 devices.  
 QFX21, QFX22, QFX23, QFX24, QFX6 and QFX11 are QFX5100 devices.  
 
-EVPN-VXLAN run on the QFX10k devices. L3 is done on the QFX10k devices.    
+EVPN-VXLAN runs on the QFX10k devices.  
+L3 is done on the QFX10k devices.  
+DCI (EVPN-VXLAN) is done on the QFX10000 devices.  
 
+QFX21, QFX22, QFX23, QFX24, QFX6 and QFX11 do L2 only.  
 QFX21 and 22 use MC-LAG. QFX23 and 24 use MC-LAG.    
 QFX6 uses a LAG. QFX11 uses a LAG. 
 
