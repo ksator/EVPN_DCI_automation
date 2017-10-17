@@ -114,7 +114,6 @@ git clone https://github.com/ksator/EVPN_DCI_automation.git
 ```
 ```
 cd EVPN_DCI_automation
-ls
 sudo -s
 ```
 #### execute this playbook to get the junos facts from the network devices
@@ -336,7 +335,7 @@ vlanlist:
 ```
 #### render the templates locally if you want to see the configuration files that are going to be generated: 
 
-##### Generate the configuration that has the desired state (best approach, declarative approach)
+##### Generate the configuration that describes the desired state (best approach, declarative approach)
 ```
 # ansible-playbook pb.renderreplacevlans.yml 
 
@@ -1756,9 +1755,8 @@ QFX6                       : ok=4    changed=1    unreachable=0    failed=0
 Superfast                  : ok=4    changed=1    unreachable=0    failed=0
 Theia                      : ok=4    changed=1    unreachable=0    failed=0
 ```
-```
-```
 # ls backup/
+```
 Dori_config.2017-09-29@13:41:05   QFX21_config.2017-10-17@09:29:40  QFX24_config.2017-10-17@09:29:47      Theia_config.2017-10-17@09:29:17
 Nori_config.2017-10-17@09:29:17   QFX22_config.2017-10-17@09:29:41  QFX6_config.2017-10-17@09:29:41
 QFX11_config.2017-10-17@09:29:41  QFX23_config.2017-10-17@09:29:41  Superfast_config.2017-10-17@09:29:18
