@@ -89,6 +89,12 @@ The same logic is applied to the python scripts.
 The last build status is: [![Build Status](https://travis-ci.org/ksator/EVPN_DCI_automation.svg?branch=master)](https://travis-ci.org/ksator/EVPN_DCI_automation)  
 The details are available [here](https://travis-ci.org/ksator/EVPN_DCI_automation)  
 
+### Slack integration:  
+Github activities and Travis CI results are posted to a Slack channel:   
+![resources/slack_integration.png](resources/slack_integration.png)  
+
+Ansible playbooks results are posted to a Slack channel:   
+![resources/ansible.png](resources/ansible.png)
 
 ### How to use this repo 
 
@@ -116,6 +122,33 @@ git clone https://github.com/ksator/EVPN_DCI_automation.git
 cd EVPN_DCI_automation
 sudo -s
 ```
+
+#### search for a mac address accross the network
+```
+# python ./findmac.py 80:ac:ac:2f:00:d4
+
+80:ac:ac:2f:00:d4 is not known by Superfast-QFX
+
+80:ac:ac:2f:00:d4 is not known by Theia-QFX
+
+80:ac:ac:2f:00:d4 is not known by Nori-QFX
+
+80:ac:ac:2f:00:d4 is known by QFX5100-48S-6 via the list of interfaces ['ae0.0']
+
+80:ac:ac:2f:00:d4 is known by QFX5100-48S3-11 via the list of interfaces ['ae0.0']
+
+80:ac:ac:2f:00:d4 is known by QFX5100-48S3-21 via the list of interfaces ['ae2.0']
+
+80:ac:ac:2f:00:d4 is not known by QFX5100-48S3-22
+
+80:ac:ac:2f:00:d4 is known by QFX5100-48S3-23 via the list of interfaces ['ae2.0']
+
+80:ac:ac:2f:00:d4 is not known by QFX5100-48S3-24
+
+lookup done accross 10 devices.
+
+```
+
 #### execute this playbook to get the junos facts from the network devices
 ```
 # ansible-playbook pb.get.junos.facts.yml
@@ -3892,38 +3925,6 @@ ansible-playbook pb.addvlans.yml
 ls backup
 ansible-playbook pb.check.vlans.yml
 ```
-#### search for a mac address accross the network
-```
-# python ./findmac.py 80:ac:ac:2f:00:d4
-
-80:ac:ac:2f:00:d4 is not known by Superfast-QFX
-
-80:ac:ac:2f:00:d4 is not known by Theia-QFX
-
-80:ac:ac:2f:00:d4 is not known by Nori-QFX
-
-80:ac:ac:2f:00:d4 is known by QFX5100-48S-6 via the list of interfaces ['ae0.0']
-
-80:ac:ac:2f:00:d4 is known by QFX5100-48S3-11 via the list of interfaces ['ae0.0']
-
-80:ac:ac:2f:00:d4 is known by QFX5100-48S3-21 via the list of interfaces ['ae2.0']
-
-80:ac:ac:2f:00:d4 is not known by QFX5100-48S3-22
-
-80:ac:ac:2f:00:d4 is known by QFX5100-48S3-23 via the list of interfaces ['ae2.0']
-
-80:ac:ac:2f:00:d4 is not known by QFX5100-48S3-24
-
-lookup done accross 10 devices.
-
-```
-
-### Slack integration:  
-Github activities and Travis CI results are posted to a Slack channel:   
-![resources/slack_integration.png](resources/slack_integration.png)  
-
-Ansible playbooks results are posted to a Slack channel:   
-![resources/ansible.png](resources/ansible.png)
 
 ### Looking for more details about junos automation with Ansible?
 You can visit these repositories:   
