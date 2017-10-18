@@ -3942,6 +3942,8 @@ ansible-playbook pb.check.vlans.yml
 ```
 ### how to retry a playbook for the devices that failed
 
+#### how to retry manually
+
 Below playbook fails for Dori:
 
 ```
@@ -4067,6 +4069,158 @@ fatal: [Dori]: FAILED! => {"changed": false, "failed": true, "msg": "unable to c
 
 PLAY RECAP *********************************************************************
 Dori                       : ok=1    changed=0    unreachable=0    failed=1   
+```
+
+#### how to retry automatically
+Edit the playbook 
+```
+# nano pb.get.junos.facts.yml
+```
+```
+# git diff pb.get.junos.facts.yml
+diff --git a/pb.get.junos.facts.yml b/pb.get.junos.facts.yml
+index 20e144f..b359de3 100644
+--- a/pb.get.junos.facts.yml
++++ b/pb.get.junos.facts.yml
+@@ -31,6 +31,10 @@
+       passwd: "{{ ADMPASS }}"
+       savedir: "{{playbook_dir}}/inventory"
+      register: junos
++     delay: 10
++     retries: 2
++     until: junos | success
++     ignore_errors: yes
+ 
+    - name: Print some facts
+      debug: 
+```
+```      
+root@ksator-virtual-machine:~/EVPN_DCI_automation# more pb.get.junos.facts.yml
+---
+ - name: create inventory directory
+   hosts: localhost
+   gather_facts: no
+   
+   tasks:
+    
+   - name: create inventory directory
+     file: 
+       path: "{{playbook_dir}}/inventory" 
+       state: directory
+     
+ - name: Get Facts
+   hosts: all
+   roles:       
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+   
+   tasks:
+   
+   - name: remove host from inventory directory
+     file: 
+       path: "{{playbook_dir}}/inventory/{{inventory_hostname}}.conf" 
+       state: absent
+     
+   - name: Retrieve information from devices running Junos
+     junos_get_facts:
+      host: "{{ junos_host }}"
+      user: "{{ ADMUSER }}"
+      passwd: "{{ ADMPASS }}"
+      savedir: "{{playbook_dir}}/inventory"
+     register: junos
+     delay: 10
+     retries: 2
+     until: junos | success
+     ignore_errors: yes
+
+   - name: Print some facts
+     debug: 
+       msg: "device {{junos.facts.hostname}} runs version {{junos.facts.version}}" 
+     when: junos.facts.version != "12.3R11.2"
+
+```
+in case of failure with a device, the play "Retrieve information from devices running Junos" is going to retry
+```
+root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml
+
+PLAY [create inventory directory] **********************************************
+
+TASK [create inventory directory] **********************************************
+ok: [localhost]
+
+PLAY [Get Facts] ***************************************************************
+
+TASK [remove host from inventory directory] ************************************
+ok: [Superfast]
+ok: [Dori]
+ok: [Nori]
+ok: [Theia]
+ok: [QFX6]
+ok: [QFX22]
+ok: [QFX21]
+ok: [QFX11]
+ok: [QFX23]
+ok: [QFX24]
+
+TASK [Retrieve information from devices running Junos] *************************
+ok: [QFX6]
+ok: [Superfast]
+ok: [Theia]
+ok: [Nori]
+ok: [QFX11]
+ok: [QFX22]
+ok: [QFX21]
+ok: [QFX23]
+ok: [QFX24]
+FAILED - RETRYING: TASK: Retrieve information from devices running Junos (2 retries left).
+FAILED - RETRYING: TASK: Retrieve information from devices running Junos (1 retries left).
+fatal: [Dori]: FAILED! => {"attempts": 2, "changed": false, "failed": true, "msg": "unable to connect to 10.161.34.131: ConnectTimeoutError(10.161.34.131)"}
+...ignoring
+
+TASK [Print some facts] ********************************************************
+ok: [Superfast] => {
+    "msg": "device Superfast-QFX runs version 17.3R1.10"
+}
+fatal: [Dori]: FAILED! => {"failed": true, "msg": "The conditional check 'junos.facts.version != \"12.3R11.2\"' failed. The error was: error while evaluating conditional (junos.facts.version != \"12.3R11.2\"): 'dict object' has no attribute 'facts'\n\nThe error appears to have been in '/home/ksator/EVPN_DCI_automation/pb.get.junos.facts.yml': line 39, column 6, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n   - name: Print some facts\n     ^ here\n"}
+ok: [Nori] => {
+    "msg": "device Nori-QFX runs version 17.3R1-S1.5"
+}
+ok: [Theia] => {
+    "msg": "device Theia-QFX runs version 17.3R1-S1.5"
+}
+ok: [QFX6] => {
+    "msg": "device QFX5100-48S-6 runs version 14.1X53-D45.3"
+}
+ok: [QFX11] => {
+    "msg": "device QFX5100-48S3-11 runs version 14.1X53-D45.3"
+}
+ok: [QFX21] => {
+    "msg": "device QFX5100-48S3-21 runs version 14.1X53-D45.3"
+}
+ok: [QFX22] => {
+    "msg": "device QFX5100-48S3-22 runs version 14.1X53-D45.3"
+}
+ok: [QFX23] => {
+    "msg": "device QFX5100-48S3-23 runs version 14.1X53-D45.3"
+}
+ok: [QFX24] => {
+    "msg": "device QFX5100-48S3-24 runs version 14.1X53-D45.3"
+}
+  to retry, use: --limit @/home/ksator/EVPN_DCI_automation/pb.get.junos.facts.retry
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=2    changed=0    unreachable=0    failed=1   
+Nori                       : ok=3    changed=0    unreachable=0    failed=0   
+QFX11                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX21                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX22                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX23                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX24                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX6                       : ok=3    changed=0    unreachable=0    failed=0   
+Superfast                  : ok=3    changed=0    unreachable=0    failed=0   
+Theia                      : ok=3    changed=0    unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
 ```
 
 
