@@ -4024,7 +4024,7 @@ Theia                      : ok=3    changed=0    unreachable=0    failed=0
 localhost                  : ok=1    changed=0    unreachable=0    failed=0   
 ```
 ```
-root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml --limit Dori
+# ansible-playbook pb.get.junos.facts.yml --limit Dori
 
 PLAY [Get Facts] ***************************************************************
 
@@ -4039,7 +4039,7 @@ PLAY RECAP *********************************************************************
 Dori                       : ok=1    changed=0    unreachable=0    failed=1   
 ```
 ```
-root@ksator-virtual-machine:~/EVPN_DCI_automation# more  pb.get.junos.facts.retry
+# more  pb.get.junos.facts.retry
 Dori
 ```
 ```
@@ -4072,6 +4072,7 @@ Dori                       : ok=1    changed=0    unreachable=0    failed=1
 ```
 
 #### how to retry automatically
+
 Edit the playbook 
 ```
 # nano pb.get.junos.facts.yml
@@ -4095,7 +4096,7 @@ index 20e144f..b359de3 100644
       debug: 
 ```
 ```      
-root@ksator-virtual-machine:~/EVPN_DCI_automation# more pb.get.junos.facts.yml
+# more pb.get.junos.facts.yml
 ---
  - name: create inventory directory
    hosts: localhost
@@ -4142,7 +4143,7 @@ root@ksator-virtual-machine:~/EVPN_DCI_automation# more pb.get.junos.facts.yml
 ```
 in case of failure with a device, the play "Retrieve information from devices running Junos" is going to retry
 ```
-root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml
+# ansible-playbook pb.get.junos.facts.yml
 
 PLAY [create inventory directory] **********************************************
 
