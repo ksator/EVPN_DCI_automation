@@ -12,6 +12,22 @@ This repo covers also how to generate YAML variables (ready to be consumed by Ji
 
 It has also a Python script to locate a mac address (i.e that connects to all the devices to provide the interfaces associated with a learned MAC addresses). This script uses the Ansible inventory file to get the list of devices ip address.    
 
+### 
+
+
+- [what-to-find-in-this-repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#what-to-find-in-this-repo)
+- [topology](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#topology)
+- [repo-structure](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#repo-structure)
+- [continuous-integration-with-travis-ci](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#continuous-integration-with-travis-ci)
+- [slack-integration](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#slack-integration)
+- [requirements-to-use-this-repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#requirements-to-use-this-repo)
+- [how-to-use-this-repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#how-to-use-this-repo)
+- [how-to-retry-a-playbook-for-the-devices-that-failed](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#how-to-retry-a-playbook-for-the-devices-that-failed) 
+- [looking-for-more-details-about-junos-automation-with-ansible](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#looking-for-more-details-about-junos-automation-with-ansible)
+- [looking-for-more-junos-automation-content-for-evpn-vxlan](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#looking-for-more-junos-automation-content-for-evpn-vxlan)
+
+
+
 ### Topology: 
 
 There are 2 DC (DC1 and DC2).    
@@ -1788,8 +1804,8 @@ QFX6                       : ok=4    changed=1    unreachable=0    failed=0
 Superfast                  : ok=4    changed=1    unreachable=0    failed=0
 Theia                      : ok=4    changed=1    unreachable=0    failed=0
 ```
-# ls backup/
 ```
+# ls backup/
 Dori_config.2017-09-29@13:41:05   QFX21_config.2017-10-17@09:29:40  QFX24_config.2017-10-17@09:29:47      Theia_config.2017-10-17@09:29:17
 Nori_config.2017-10-17@09:29:17   QFX22_config.2017-10-17@09:29:41  QFX6_config.2017-10-17@09:29:41
 QFX11_config.2017-10-17@09:29:41  QFX23_config.2017-10-17@09:29:41  Superfast_config.2017-10-17@09:29:18
@@ -3925,7 +3941,7 @@ ansible-playbook pb.addvlans.yml
 ls backup
 ansible-playbook pb.check.vlans.yml
 ```
-### How to retry a playbook for a device(s) that failed 
+### how to retry a playbook for the devices that failed
 
 Below playbook fails for Dori:
 
@@ -4029,7 +4045,7 @@ Dori
 # pwd
 /home/ksator/EVPN_DCI_automation
 ```
-you can run any of these commands to retry the play for the device that failed: 
+you can run any of these commands to retry the playbook for the devices that failed: 
 ```
 root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml --limit @/home/ksator/EVPN_DCI_automation/pb.get.junos.facts.retry
 
