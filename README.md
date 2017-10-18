@@ -12,19 +12,18 @@ This repo covers also how to generate YAML variables (ready to be consumed by Ji
 
 It has also a Python script to locate a mac address (i.e that connects to all the devices to provide the interfaces associated with a learned MAC addresses). This script uses the Ansible inventory file to get the list of devices ip address.    
 
-### 
+### Repo content
 
-
-- [what-to-find-in-this-repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#what-to-find-in-this-repo)
-- [topology](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#topology)
-- [repo-structure](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#repo-structure)
-- [continuous-integration-with-travis-ci](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#continuous-integration-with-travis-ci)
-- [slack-integration](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#slack-integration)
-- [requirements-to-use-this-repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#requirements-to-use-this-repo)
-- [how-to-use-this-repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#how-to-use-this-repo)
-- [how-to-retry-a-playbook-for-the-devices-that-failed](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#how-to-retry-a-playbook-for-the-devices-that-failed) 
-- [looking-for-more-details-about-junos-automation-with-ansible](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#looking-for-more-details-about-junos-automation-with-ansible)
-- [looking-for-more-junos-automation-content-for-evpn-vxlan](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#looking-for-more-junos-automation-content-for-evpn-vxlan)
+- [what to find in this repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#what-to-find-in-this-repo)
+- [network topology](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#topology)
+- [repository structure](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#repo-structure)
+- [continuous integration](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#continuous-integration-with-travis-ci)
+- [slack integration](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#slack-integration)
+- [requirements to use this repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#requirements-to-use-this-repo)
+- [how to use this repo](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#how-to-use-this-repo)
+- [how to retry a playbook for the devices that failed](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#how-to-retry-a-playbook-for-the-devices-that-failed) 
+- [looking for more details about junos automation with ansible](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#looking-for-more-details-about-junos-automation-with-ansible)
+- [looking for more junos automation content for evpn vxlan](https://github.com/ksator/EVPN_DCI_automation/blob/master/README.md#looking-for-more-junos-automation-content-for-evpn-vxlan)
 
 
 
