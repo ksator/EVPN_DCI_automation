@@ -3925,6 +3925,136 @@ ansible-playbook pb.addvlans.yml
 ls backup
 ansible-playbook pb.check.vlans.yml
 ```
+### How to retry a playbook for a device(s) that failed 
+
+Below playbook fails for Dori:
+
+```
+# ansible-playbook pb.get.junos.facts.yml 
+
+PLAY [create inventory directory] **********************************************
+
+TASK [create inventory directory] **********************************************
+ok: [localhost]
+
+PLAY [Get Facts] ***************************************************************
+
+TASK [remove host from inventory directory] ************************************
+ok: [Superfast]
+ok: [Theia]
+ok: [Dori]
+ok: [QFX6]
+ok: [Nori]
+ok: [QFX11]
+ok: [QFX21]
+ok: [QFX22]
+ok: [QFX23]
+ok: [QFX24]
+
+TASK [Retrieve information from devices running Junos] *************************
+ok: [QFX6]
+ok: [Superfast]
+ok: [Theia]
+ok: [Nori]
+ok: [QFX11]
+ok: [QFX23]
+ok: [QFX21]
+ok: [QFX22]
+ok: [QFX24]
+fatal: [Dori]: FAILED! => {"changed": false, "failed": true, "msg": "unable to connect to 10.161.34.131: ConnectTimeoutError(10.161.34.131)"}
+
+TASK [Print some facts] ********************************************************
+ok: [QFX11] => {
+    "msg": "device QFX5100-48S3-11 runs version 14.1X53-D45.3"
+}
+ok: [Nori] => {
+    "msg": "device Nori-QFX runs version 17.3R1-S1.5"
+}
+ok: [Superfast] => {
+    "msg": "device Superfast-QFX runs version 17.3R1.10"
+}
+ok: [QFX6] => {
+    "msg": "device QFX5100-48S-6 runs version 14.1X53-D45.3"
+}
+ok: [Theia] => {
+    "msg": "device Theia-QFX runs version 17.3R1-S1.5"
+}
+ok: [QFX22] => {
+    "msg": "device QFX5100-48S3-22 runs version 14.1X53-D45.3"
+}
+ok: [QFX23] => {
+    "msg": "device QFX5100-48S3-23 runs version 14.1X53-D45.3"
+}
+ok: [QFX21] => {
+    "msg": "device QFX5100-48S3-21 runs version 14.1X53-D45.3"
+}
+ok: [QFX24] => {
+    "msg": "device QFX5100-48S3-24 runs version 14.1X53-D45.3"
+}
+	to retry, use: --limit @/home/ksator/EVPN_DCI_automation/pb.get.junos.facts.retry
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=1    changed=0    unreachable=0    failed=1   
+Nori                       : ok=3    changed=0    unreachable=0    failed=0   
+QFX11                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX21                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX22                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX23                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX24                      : ok=3    changed=0    unreachable=0    failed=0   
+QFX6                       : ok=3    changed=0    unreachable=0    failed=0   
+Superfast                  : ok=3    changed=0    unreachable=0    failed=0   
+Theia                      : ok=3    changed=0    unreachable=0    failed=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=0   
+```
+```
+root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml --limit Dori
+
+PLAY [Get Facts] ***************************************************************
+
+TASK [remove host from inventory directory] ************************************
+ok: [Dori]
+
+TASK [Retrieve information from devices running Junos] *************************
+fatal: [Dori]: FAILED! => {"changed": false, "failed": true, "msg": "unable to connect to 10.161.34.131: ConnectTimeoutError(10.161.34.131)"}
+	to retry, use: --limit @/home/ksator/EVPN_DCI_automation/pb.get.junos.facts.retry
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=1    changed=0    unreachable=0    failed=1   
+```
+```
+root@ksator-virtual-machine:~/EVPN_DCI_automation# more  pb.get.junos.facts.retry
+Dori
+```
+```
+# pwd
+/home/ksator/EVPN_DCI_automation
+```
+you can run any of these commands to retry the play for the device that failed: 
+```
+root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml --limit @/home/ksator/EVPN_DCI_automation/pb.get.junos.facts.retry
+
+root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml --limit @pb.get.junos.facts.retry
+
+root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml --limit @./pb.get.junos.facts.retry
+```
+
+```
+root@ksator-virtual-machine:~/EVPN_DCI_automation# ansible-playbook pb.get.junos.facts.yml --limit @./pb.get.junos.facts.retry
+
+PLAY [Get Facts] ***************************************************************
+
+TASK [remove host from inventory directory] ************************************
+ok: [Dori]
+
+TASK [Retrieve information from devices running Junos] *************************
+fatal: [Dori]: FAILED! => {"changed": false, "failed": true, "msg": "unable to connect to 10.161.34.131: ConnectTimeoutError(10.161.34.131)"}
+    to retry, use: --limit @/home/ksator/EVPN_DCI_automation/pb.get.junos.facts.retry
+
+PLAY RECAP *********************************************************************
+Dori                       : ok=1    changed=0    unreachable=0    failed=1   
+```
+
+
 
 ### Looking for more details about junos automation with Ansible?
 You can visit these repositories:   
