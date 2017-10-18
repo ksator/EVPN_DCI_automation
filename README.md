@@ -6,7 +6,7 @@ Network automation content with Ansible, Jinja, YAML, Python and Travis CI.
 - With network devices running Junos. Accross 2 differents DC.  
 
 The setup is already up and running. So this automation content is not used to build the setup.  
-This automation content is used to update the existing setup adding/removing/replacing/auditing vlans to the DCI configuration. It uses a declarative approach and enforces the desired state against the network.    
+This automation content is used to update the existing setup managing (stitching/unstitching/configuring/auditing ...) vlans to the DCI configuration. It uses a declarative approach and enforces the desired state against the network.    
 
 This repo covers also how to generate YAML variables (ready to be consumed by Jinja and Ansible) from a CSV file (source-controlled) using Python.  
 
