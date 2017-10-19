@@ -21,7 +21,7 @@ It has also a Python script to locate a mac address (i.e that connects to all th
 - [Repository structure](https://github.com/ksator/EVPN_DCI_automation/wiki/Repository-structure)
 - [Requirements to use this repo](https://github.com/ksator/EVPN_DCI_automation/wiki/Requirements-to-use-this-repo)
 - [How to get the remote repo content locally](https://github.com/ksator/EVPN_DCI_automation/wiki/How-to-get-the-remote-repo-content-locally)
-- [How to generate yaml variables for ansible from a csv file](https://github.com/ksator/EVPN_DCI_automation/wiki/How-to-generate-yaml-variables-for-ansible-from-a-csv-file)
+- [How to generate yaml variables for jinja and ansible from a csv file](https://github.com/ksator/EVPN_DCI_automation/wiki/How-to-generate-yaml-variables-for-ansible-from-a-csv-file)
 - [How to run the VLANs stitching management demo](https://github.com/ksator/EVPN_DCI_automation/wiki/How-to-run-the-VLANs-stitching-management-demo)
 - [how to retry a playbook for the devices that failed](https://github.com/ksator/EVPN_DCI_automation/wiki/how-to-retry-a-playbook-for-the-devices-that-failed)
 - [How to search for a mac address accross the network](https://github.com/ksator/EVPN_DCI_automation/wiki/How-to-search-for-a-mac-address-accross-the-network)
