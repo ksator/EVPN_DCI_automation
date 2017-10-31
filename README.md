@@ -28,6 +28,8 @@ It has also a Python script to locate a mac address (i.e that connects to all th
 - [Continuous integration with Travis CI](https://github.com/ksator/EVPN_DCI_automation/wiki/Continuous-integration-with-Travis-CI)
 - [Slack integration](https://github.com/ksator/EVPN_DCI_automation/wiki/Slack-integration)
 - [Looking for more details about junos automation with Ansible?](https://github.com/ksator/EVPN_DCI_automation/wiki/Looking-for-more-details-about-junos-automation-with-Ansible%3F)
-- [Looking for more junos automation content for EVPN VXLAN?](https://github.com/ksator/EVPN_DCI_automation/wiki/Looking-for-more-junos-automation-content-for-EVPN-VXLAN%3F)
+- [Looking for more junos automation content for EVPN VXLAN?](https://github.com/ksator/EVPN_DCI_automation/wiki/Looking-for-more-junos-automation-content-for-EVPN-VXLAN%3F)  
+- [Looking for more Junos automation solutions?](https://github.com/ksator/EVPN_DCI_automation/wiki/Looking-for-more-Junos-automation-solutions)
+
 
 
